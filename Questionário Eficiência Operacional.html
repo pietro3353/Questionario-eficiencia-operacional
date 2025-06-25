@@ -1,0 +1,2291 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questionário de Maturidade Operacional</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+          /* Cores - Atualizadas com cores da marca */
+          --color-primary: #EB6856; /* Laranja */
+          --color-secondary-brand: #2D2357; /* Azul */
+          
+          --color-background: #fdfcfa;
+          --color-surface: #ffffff;
+          --color-text: #2D2357; /* Azul escuro para texto */
+          --color-text-secondary: #5b647c;
+          
+          --color-primary-hover: #e55a47;
+          --color-primary-active: #d94c38;
+          --color-secondary: rgba(45, 35, 87, 0.1); /* Versão clara do azul */
+          --color-secondary-hover: rgba(45, 35, 87, 0.15);
+          --color-secondary-active: rgba(45, 35, 87, 0.2);
+          
+          --color-border: rgba(45, 35, 87, 0.2);
+          --color-btn-primary-text: #ffffff;
+          --color-card-border: rgba(45, 35, 87, 0.1);
+          --color-card-border-inner: rgba(45, 35, 87, 0.1);
+          
+          --color-error: #d32f2f;
+          --color-success: #388e3c;
+          --color-warning: #f57c00;
+          --color-info: #1976d2;
+          --color-focus-ring: rgba(235, 104, 86, 0.4);
+
+          /* Outras variáveis permanecem as mesmas */
+          --font-family-base: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+          --font-size-base: 16px;
+          --line-height-normal: 1.6;
+          --radius-base: 8px;
+          --radius-lg: 12px;
+          --shadow-sm: 0 2px 4px rgba(0,0,0,0.05);
+          --shadow-md: 0 4px 10px rgba(0,0,0,0.08);
+          --shadow-lg: 0 10px 20px rgba(0,0,0,0.1);
+          --duration-normal: 250ms;
+          --ease-standard: cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* Estilos base */
+        html {
+          font-size: var(--font-size-base);
+          font-family: var(--font-family-base);
+          line-height: var(--line-height-normal);
+          color: var(--color-text);
+          background-color: var(--color-background);
+          -webkit-font-smoothing: antialiased;
+          box-sizing: border-box;
+        }
+
+        body {
+          margin: 0;
+          padding: 0;
+        }
+
+        *, *::before, *::after {
+          box-sizing: inherit;
+        }
+
+        h1, h2, h3, h4 {
+          font-weight: 700;
+          line-height: 1.2;
+          color: var(--color-secondary-brand);
+        }
+
+        h1 { font-size: 3rem; }
+        h2 { font-size: 2rem; }
+        h3 { font-size: 1.5rem; }
+        h4 { font-size: 1.25rem; }
+
+        .container {
+          width: 100%;
+          max-width: 1200px;
+          margin: 0 auto;
+          padding: 0 24px;
+        }
+
+        /* Gerenciamento de Páginas */
+        .page {
+          display: none;
+          padding: 4rem 0;
+        }
+
+        .page.active {
+          display: block;
+          animation: fadeIn 0.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+          from { opacity: 0; }
+          to { opacity: 1; }
+        }
+
+        /* Estilos de Botão */
+        .btn {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          padding: 14px 28px;
+          border-radius: var(--radius-base);
+          font-size: 1rem;
+          font-weight: 600;
+          cursor: pointer;
+          transition: all var(--duration-normal) var(--ease-standard);
+          border: 2px solid transparent;
+          text-decoration: none;
+          width: 100%; /* Padrão para largura total para mobile-first */
+        }
+        .btn i {
+            margin-right: 8px;
+        }
+        .btn:last-child i {
+            margin-left: 8px;
+            margin-right: 0;
+        }
+        .btn--primary {
+          background-color: var(--color-primary);
+          color: var(--color-btn-primary-text);
+          border-color: var(--color-primary);
+        }
+        .btn--primary:hover {
+          background-color: var(--color-primary-hover);
+          border-color: var(--color-primary-hover);
+          transform: translateY(-3px);
+          box-shadow: var(--shadow-md);
+        }
+        .btn--outline {
+          background-color: transparent;
+          color: var(--color-primary);
+          border-color: var(--color-primary);
+        }
+        .btn--outline:hover {
+          background-color: var(--color-primary);
+          color: var(--color-btn-primary-text);
+        }
+        .btn:disabled {
+          opacity: 0.5;
+          cursor: not-allowed;
+          transform: none;
+          box-shadow: none;
+        }
+        
+        @media (min-width: 768px) {
+            .btn {
+                width: auto; /* Reverte para largura automática em telas maiores */
+            }
+        }
+
+        /* Seção Hero */
+        .hero-section {
+            background: linear-gradient(170deg, #f7f9ff 0%, #fdfcfa 100%);
+            color: var(--color-text);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+        }
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 4rem;
+            align-items: center;
+            text-align: center;
+        }
+        
+        @media (min-width: 992px) {
+            .hero-content {
+                grid-template-columns: 1fr 1fr;
+                text-align: left;
+            }
+        }
+        
+        .hero-text {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        @media (min-width: 992px) {
+            .hero-text {
+                align-items: flex-start;
+            }
+        }
+        
+        .hero-text h1 {
+            color: var(--color-secondary-brand);
+            margin-bottom: 1.5rem;
+        }
+        .hero-subtitle {
+            font-size: 1.25rem;
+            margin-bottom: 2rem;
+            color: var(--color-text-secondary);
+            line-height: 1.7;
+        }
+        .hero-features {
+            margin-top: 2.5rem;
+            margin-bottom: 2.5rem;
+            display: flex; 
+            flex-direction: column;
+            align-items: center; 
+        }
+
+        @media (min-width: 992px) {
+            .hero-features {
+                align-items: flex-start;
+            }
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+        .feature-item i {
+            color: var(--color-primary);
+            font-size: 1.2rem;
+            margin-right: 1rem;
+            width: 24px;
+            text-align: center;
+        }
+        
+        /* Visual Hero Novo */
+        .hero-visual {
+            position: relative;
+            height: 500px;
+            display: none; /* Ocultar em mobile por padrão */
+        }
+        
+        @media (min-width: 992px) {
+            .hero-visual {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+        }
+        
+        .visual-card {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(45, 35, 87, 0.1);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            box-shadow: var(--shadow-lg);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+        .visual-card:hover {
+            transform: translateY(-10px) scale(1.05) !important;
+            z-index: 10;
+        }
+        .visual-card i {
+            font-size: 2.5rem;
+            color: var(--color-primary);
+            margin-bottom: 1rem;
+            line-height: 1;
+        }
+        .visual-card h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--color-secondary-brand);
+            margin: 0;
+        }
+        .card-1 {
+            width: 180px;
+            height: 180px;
+            transform: rotate(-15deg) translate(-80px, -120px);
+            z-index: 1;
+        }
+        .card-2 {
+            width: 220px;
+            height: 220px;
+            transform: rotate(5deg);
+            z-index: 2;
+        }
+        .card-3 {
+            width: 160px;
+            height: 160px;
+            transform: rotate(12deg) translate(120px, 100px);
+            z-index: 1;
+        }
+
+
+        /* Estilos de Formulário */
+        .form-section {
+          max-width: 800px;
+          margin: 0 auto;
+        }
+        .section-header {
+          text-align: center;
+          margin-bottom: 3rem;
+        }
+        .section-header h2 {
+          color: var(--color-secondary-brand);
+        }
+        .assessment-form {
+          background: var(--color-surface);
+          padding: 2.5rem;
+          border-radius: var(--radius-lg);
+          box-shadow: var(--shadow-lg);
+        }
+        .form-grid {
+          display: grid;
+          grid-template-columns: 1fr;
+          gap: 1.5rem;
+        }
+        @media(min-width: 768px) {
+            .form-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        .form-group--full {
+          grid-column: 1 / -1;
+        }
+        .form-label {
+          display: block;
+          margin-bottom: 0.5rem;
+          font-weight: 500;
+          font-size: 0.9rem;
+        }
+        .form-control {
+          width: 100%;
+          padding: 12px;
+          border: 1px solid var(--color-border);
+          border-radius: var(--radius-base);
+          background-color: var(--color-surface);
+          color: var(--color-text);
+        }
+        .form-control:focus {
+          outline: none;
+          border-color: var(--color-primary);
+          box-shadow: 0 0 0 3px var(--color-focus-ring);
+        }
+        .form-actions {
+          display: flex;
+          flex-direction: column-reverse; /* Empilha botões e coloca o primário primeiro */
+          gap: 1rem; /* Espaço entre os botões empilhados */
+          margin-top: 2rem;
+          padding-top: 1.5rem;
+          border-top: 1px solid var(--color-border);
+        }
+        @media (min-width: 768px) {
+            .form-actions {
+                flex-direction: row; /* Reverte para linha em telas maiores */
+                justify-content: space-between;
+            }
+        }
+
+        /* Estilos do Questionário */
+        .questionnaire-header {
+            background: var(--color-surface);
+            padding: 1.5rem;
+            border-radius: var(--radius-lg);
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow-sm);
+        }
+        .progress-bar-container {
+            background-color: var(--color-secondary);
+            border-radius: 999px;
+            height: 10px;
+            overflow: hidden;
+        }
+        .progress-bar {
+            background-color: var(--color-primary);
+            height: 100%;
+            transition: width 0.3s ease;
+        }
+        .dimension-info {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .maturity-scale-legend {
+            background-color: var(--color-secondary);
+            padding: 1.5rem;
+            border-radius: var(--radius-lg);
+            margin-bottom: 2rem;
+            border-left: 5px solid var(--color-primary);
+        }
+        .maturity-scale-legend h3 {
+            margin-top: 0;
+            color: var(--color-secondary-brand);
+        }
+        .dimension-group {
+            margin-bottom: 2.5rem;
+            padding: 1.5rem;
+            border-radius: var(--radius-lg);
+            background-color: #fff;
+            box-shadow: var(--shadow-sm);
+        }
+        .dimension-group h3 {
+            color: var(--color-secondary-brand);
+            border-bottom: 2px solid var(--color-primary);
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+        .question-card {
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid var(--color-border);
+        }
+        .question-card:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        .question-text {
+            font-size: 1.1rem;
+            font-weight: 500;
+            margin-bottom: 1rem;
+        }
+        .likert-scale, .options-group {
+            display: flex;
+            flex-wrap: wrap; /* Allow wrapping for more options */
+            justify-content: center;
+            gap: 1rem;
+        }
+        .likert-option input[type="radio"],
+        .radio-option input[type="radio"],
+        .checkbox-option input[type="checkbox"] {
+            display: none;
+        }
+        .likert-option label {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border: 2px solid var(--color-border);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .likert-option input[type="radio"]:checked + label {
+            background-color: var(--color-primary);
+            color: white;
+            border-color: var(--color-primary);
+        }
+        .likert-option label:hover {
+            background-color: var(--color-secondary);
+            border-color: var(--color-primary);
+        }
+
+        .radio-option label, .checkbox-option label {
+            display: inline-flex;
+            align-items: center;
+            padding: 10px 20px;
+            border: 2px solid var(--color-border);
+            border-radius: var(--radius-base);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            white-space: nowrap; /* Prevent text wrapping inside label */
+        }
+        .radio-option input[type="radio"]:checked + label,
+        .checkbox-option input[type="checkbox"]:checked + label {
+            background-color: var(--color-primary);
+            color: white;
+            border-color: var(--color-primary);
+        }
+        .radio-option label:hover, .checkbox-option label:hover {
+            background-color: var(--color-secondary);
+            border-color: var(--color-primary);
+        }
+
+        .other-input-container {
+            margin-top: 0.5rem;
+            width: 100%;
+        }
+        .other-input-container .form-control {
+            margin-top: 0.5rem;
+        }
+
+
+        .questionnaire-navigation {
+            display: flex;
+            flex-direction: column-reverse;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        @media (min-width: 768px) {
+            .questionnaire-navigation {
+                flex-direction: row;
+                justify-content: space-between;
+            }
+        }
+        
+
+        /* Painel de Resultados */
+        .results-header {
+          text-align: center;
+          margin-bottom: 3rem;
+        }
+        .results-summary {
+          display: grid;
+          grid-template-columns: 1fr;
+          gap: 2rem;
+          margin-bottom: 3rem;
+          align-items: start;
+        }
+        @media(min-width: 992px) {
+            .results-summary {
+                grid-template-columns: 1fr 1.5fr;
+            }
+        }
+        .main-score {
+          background: var(--color-surface);
+          border-radius: var(--radius-lg);
+          padding: 2rem;
+          text-align: center;
+          box-shadow: var(--shadow-md);
+        }
+        .score-circle .score-value {
+            font-size: 4rem;
+            font-weight: 700;
+            color: var(--color-primary);
+        }
+        .level-badge {
+            padding: 0.5em 1em;
+            border-radius: 999px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: #fff;
+        }
+        .level-badge.inexistente { background-color: #757575; }
+        .level-badge.basico { background-color: #ef5350; }
+        .level-badge.padronizado { background-color: #ffb74d; }
+        .level-badge.gerenciado { background-color: #66bb6a; }
+        .level-badge.avancado { background-color: #26a69a; }
+        .quick-insights {
+          display: grid;
+          gap: 1.5rem;
+        }
+        .insight-card {
+          background: var(--color-surface);
+          border-radius: var(--radius-lg);
+          padding: 1.5rem;
+          box-shadow: var(--shadow-sm);
+        }
+        .insight-card h3 i {
+            color: var(--color-primary);
+        }
+        .insight-card ul {
+          list-style-type: none;
+          padding-left: 0;
+          margin: 0;
+        }
+        .insight-card li {
+          padding: 0.5rem 0;
+          border-bottom: 1px solid var(--color-border);
+        }
+        .insight-card li:last-child {
+          border: none;
+        }
+
+        .charts-section {
+            margin-bottom: 3rem;
+            background-color: var(--color-surface);
+            padding: 2rem;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+        }
+        .chart-container {
+            height: 450px; /* Altura ajustada para gráfico de radar */
+        }
+        .classification-results-section {
+            margin-top: 3rem;
+        }
+        .classification-results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+        .classification-result-card {
+            background-color: var(--color-surface);
+            padding: 1.5rem;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+        }
+        .classification-result-card .question {
+            font-weight: 600;
+            color: var(--color-secondary-brand);
+            margin-bottom: 0.5rem;
+        }
+        .classification-result-card .answer {
+            color: var(--color-primary);
+            font-weight: 500;
+        }
+
+        .results-actions {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 1.5rem;
+          margin-top: 3rem;
+        }
+
+        /* Estilos de Notificação */
+        .notification {
+          position: fixed;
+          top: 20px;
+          right: 20px;
+          padding: 12px 20px;
+          border-radius: var(--radius-base);
+          color: white;
+          font-weight: 500;
+          z-index: 1000;
+          opacity: 0;
+          transform: translateX(100%);
+          transition: all 0.3s ease-in-out;
+          box-shadow: var(--shadow-lg);
+        }
+        .notification.show {
+          opacity: 1;
+          transform: translateX(0);
+        }
+        .notification.success { background-color: var(--color-success); }
+        .notification.error { background-color: var(--color-error); }
+        .notification.info { background-color: var(--color-info); }
+
+    </style>
+</head>
+<body>
+    <!-- Página Inicial -->
+    <section id="landing-page" class="page active">
+        <div class="hero-section">
+            <div class="container">
+                <div class="hero-content">
+                    <div class="hero-text">
+                        <h1>Avalie a Maturidade Operacional da sua Instituição</h1>
+                        <p class="hero-subtitle">Descubra o nível de maturidade da sua gestão operacional e identifique oportunidades de otimização com nossa ferramenta de diagnóstico completa.</p>
+                        
+                        <button class="btn btn--primary btn--lg" onclick="startAssessment()">
+                            <i class="fas fa-play"></i>
+                            Iniciar Diagnóstico Gratuito
+                        </button>
+
+                        <div class="hero-features">
+                            <div class="feature-item">
+                                <i class="fas fa-tasks"></i>
+                                <span>Análise Abrangente</span>
+                            </div>
+                            <div class="feature-item">
+                                <i class="fas fa-chart-bar"></i>
+                                <span>Relatório Instantâneo</span>
+                            </div>
+                            <div class="feature-item">
+                                <i class="fas fa-lightbulb"></i>
+                                <span>Recomendações Práticas</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hero-visual">
+                        <div class="visual-card card-1">
+                           <i class="fas fa-hospital"></i>
+                           <h3>Gestão Hospitalar</h3>
+                        </div>
+                        <div class="visual-card card-2">
+                           <i class="fas fa-cogs"></i>
+                           <h3>Eficiência Operacional</h3>
+                        </div>
+                         <div class="visual-card card-3">
+                           <i class="fas fa-chart-line"></i>
+                           <h3>Melhoria Contínua</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Formulário de Dados Institucionais -->
+    <section id="institutional-form" class="page">
+        <div class="container">
+            <div class="form-section">
+                <div class="section-header">
+                    <h2>Dados Institucionais</h2>
+                    <p>Por favor, forneça as informações básicas sobre sua instituição.</p>
+                </div>
+
+                <form id="institution-form" class="assessment-form">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label class="form-label" for="institution-name">Nome da Instituição *</label>
+                            <input type="text" id="institution-name" class="form-control" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="respondent-full-name">Seu Nome Completo *</label>
+                            <input type="text" id="respondent-full-name" class="form-control" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="respondent-email">Seu Melhor E-mail *</label>
+                            <input type="email" id="respondent-email" class="form-control" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="respondent-area">Para qual área você responde atualmente? *</label>
+                            <select id="respondent-area" class="form-control" required>
+                                <option value="">Selecione...</option>
+                                <option value="Administrativo">Administrativo (RH, Financeiro, Tecnologia, Jurídico, Comercial, etc)</option>
+                                <option value="Corpo Médico">Corpo Médico (Clínico, Cirúrgico, Especialista)</option>
+                                <option value="Enfermagem">Enfermagem (Técnicas e Enfermeiros)</option>
+                                <option value="Financeiro">Financeiro</option>
+                                <option value="Gestão">Gestão (Diretoria Executiva, C-level, VP, Presidência)</option>
+                                <option value="Multidisciplinar">Multidisciplinar (Nutrição, Fisioterapia, Psicologia, Farmacêutica, Terapias, etc)</option>
+                                <option value="Operacional">Operacional</option>
+                                <option value="Outra">Outra</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="respondent-role">Cargo/Função do Respondente *</label>
+                            <input type="text" id="respondent-role" class="form-control" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label" for="experience-time">Tempo de experiência na função atual *</label>
+                            <input type="text" id="experience-time" class="form-control" required placeholder="Ex: 5 anos, 2 meses, etc.">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="region">Estado/Região *</label>
+                            <input type="text" id="region" class="form-control" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="institution-type">Tipo de Instituição *</label>
+                            <select id="institution-type" class="form-control" required>
+                                <option value="">Selecione...</option>
+                                <option value="hospital-geral">Hospital Geral</option>
+                                <option value="hospital-especializado">Hospital Especializado</option>
+                                <option value="clinica">Clínica</option>
+                                <option value="centro-diagnostico">Centro de Diagnóstico</option>
+                                <option value="laboratorio">Laboratório</option>
+                                <option value="outro">Outra</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group form-group--full">
+                            <label class="form-label">Natureza jurídica da instituição *</label>
+                            <div class="options-group">
+                                <div class="radio-option">
+                                    <input type="radio" id="legal-public" name="legal-nature" value="Público" required>
+                                    <label for="legal-public">Público</label>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" id="legal-private" name="legal-nature" value="Privado">
+                                    <label for="legal-private">Privado</label>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" id="legal-philanthropic" name="legal-nature" value="Filantrópico">
+                                    <label for="legal-philanthropic">Filantrópico</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group form-group--full">
+                            <label class="form-label" for="beds-count">Porte da Instituição (número de leitos) *</label>
+                            <input type="number" id="beds-count" class="form-control" min="0" required>
+                        </div>
+                        
+                        <!-- Campos movidos para classification-questions-page -->
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="button" class="btn btn--outline" onclick="goToLanding()">
+                            <i class="fas fa-arrow-left"></i>
+                            Voltar
+                        </button>
+                        <button type="submit" class="btn btn--primary">
+                            Continuar para o Questionário
+                            <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Questionário de Avaliação (Likert-Scale Questions) -->
+    <section id="assessment-questionnaire" class="page">
+        <div class="container">
+            <div class="questionnaire-header">
+                 <div class="progress-section">
+                    <div class="progress-info">
+                        <span class="progress-text">Progresso: <span id="current-step-display">0</span> de <span id="total-steps-display"></span></span>
+                        <span class="progress-percentage" id="overall-progress-percentage">0%</span>
+                    </div>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar" id="overall-progress-bar" style="width: 0%;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="questionnaire-content">
+                <div class="dimension-info">
+                    <h2 id="dimension-title">Dimensão de Maturidade Operacional</h2>
+                    <p id="dimension-description">Para cada uma das perguntas abaixo, avalie o grau de maturidade da sua instituição com base na escala de 1 a 5.</p>
+                </div>
+
+                <div class="maturity-scale-legend">
+                    <h3>Legenda da Escala de Maturidade</h3>
+                    <p><strong>1 - Inexistente:</strong> Nenhum processo formal; ações apenas reativas.</p>
+                    <p><strong>2 - Básico:</strong> Processo parcialmente adotado, sem padronização ou monitoramento regular.</p>
+                    <p><strong>3 - Padronizado:</strong> Processo claramente documentado e conhecido pelas equipes.</p>
+                    <p><strong>4 - Gerenciado:</strong> Processo padronizado, monitorado regularmente, com ajustes pontuais.</p>
+                    <p><strong>5 - Avançado:</strong> Processo digitalizado, automatizado, integrado e com melhoria contínua.</p>
+                </div>
+
+                <form id="questionnaire-form">
+                    <div class="questions-container" id="questions-container">
+                        <!-- Perguntas serão preenchidas dinamicamente (uma dimensão por vez) -->
+                    </div>
+
+                    <div class="questionnaire-navigation">
+                        <button type="button" class="btn btn--outline" id="prev-btn">
+                            <i class="fas fa-arrow-left"></i>
+                            Anterior
+                        </button>
+                        <button type="button" class="btn btn--primary" id="next-btn">
+                            Próximo
+                            <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Indicadores Operacionais e Financeiros (New Page) -->
+    <section id="operational-financial-indicators-page" class="page">
+        <div class="container">
+            <div class="questionnaire-header">
+                 <div class="progress-section">
+                    <div class="progress-info">
+                        <span class="progress-text">Progresso: <span id="current-step-display-ofi">0</span> de <span id="total-steps-display-ofi"></span></span>
+                        <span class="progress-percentage" id="overall-progress-percentage-ofi">0%</span>
+                    </div>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar" id="overall-progress-bar-ofi" style="width: 0%;"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="questionnaire-content">
+                <div class="dimension-info">
+                    <h2>Indicadores Operacionais e Financeiros</h2>
+                    <p>Nesta seção você irá responder questões relacionadas à operação e desempenho financeiro da sua instituição. Caso você não possa responder a questão, deixe-a em branco.</p>
+                </div>
+                <form id="operational-financial-form" class="assessment-form">
+                    <div class="form-grid" id="ofi-questions-container">
+                        <!-- OFI questions will be dynamically populated -->
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn btn--outline" onclick="goToLastDimension()">
+                            <i class="fas fa-arrow-left"></i>
+                            Anterior
+                        </button>
+                        <button type="button" class="btn btn--primary" onclick="nextOFISection()">
+                            Continuar para Autoavaliação
+                            <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Perguntas de Classificação (Autoavaliação e Contato) -->
+    <section id="classification-questions-page" class="page">
+        <div class="container">
+            <div class="questionnaire-header">
+                 <div class="progress-section">
+                    <div class="progress-info">
+                        <span class="progress-text">Progresso: <span id="current-step-display-class">0</span> de <span id="total-steps-display-class"></span></span>
+                        <span class="progress-percentage" id="overall-progress-percentage-class">0%</span>
+                    </div>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar" id="overall-progress-bar-class" style="width: 0%;"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="questionnaire-content">
+                <div class="dimension-info">
+                    <h2 id="classification-title">Complemento para Pesquisa e Contato</h2>
+                    <p id="classification-description">Por favor, preencha as informações adicionais para concluir a pesquisa.</p>
+                </div>
+                <form id="classification-form" class="assessment-form">
+                    <div class="form-grid" id="classification-questions-container">
+                        <!-- Classification questions will be dynamically populated -->
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn btn--outline" onclick="goToOFISection()">
+                            <i class="fas fa-arrow-left"></i>
+                            Anterior
+                        </button>
+                        <button type="button" class="btn btn--primary" onclick="finishAssessment()">
+                            Finalizar e Ver Resultados
+                            <i class="fas fa-check"></i>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Painel de Resultados -->
+    <section id="results-dashboard" class="page">
+        <div class="container">
+            <div class="results-header">
+                <h2> Resultados do Questionário</h2>
+                <p>Análise da maturidade operacional da sua instituição.</p>
+            </div>
+
+            <div class="results-summary">
+                <div class="score-card main-score">
+                    <div class="score-circle">
+                        <div class="score-value" id="overall-score">0.0</div>
+                        <div class="score-label">Score Geral de Maturidade</div>
+                    </div>
+                    <div class="maturity-level">
+                        <div class="level-badge" id="maturity-badge">Inexistente</div>
+                        <div class="level-description" id="maturity-description">Nenhum processo formal; ações apenas reativas.</div>
+                    </div>
+                </div>
+
+                <div class="quick-insights">
+                    <div class="insight-card strengths">
+                        <h3><i class="fas fa-thumbs-up"></i> Pontos Fortes</h3>
+                        <ul id="strengths-list">
+                            <!-- Preenchido dinamicamente -->
+                        </ul>
+                    </div>
+                    <div class="insight-card opportunities">
+                        <h3><i class="fas fa-lightbulb"></i> Oportunidades de Melhoria</h3>
+                        <ul id="opportunities-list">
+                            <!-- Preenchido dinamicamente -->
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="charts-section">
+                <div class="chart-container">
+                    <canvas id="dimensions-chart"></canvas>
+                </div>
+            </div>
+            
+            <div class="classification-results-section">
+                <h3>Respostas Adicionais</h3>
+                <div id="additional-results-container">
+                     <!-- OFI and Classification results will be displayed here -->
+                </div>
+            </div>
+
+
+            <div class="results-actions">
+                <button class="btn btn--outline" onclick="restartAssessment()">
+                    <i class="fas fa-redo"></i>
+                    Reiniciar Questionário
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // Variáveis globais
+        let currentPage = 'landing-page';
+        let currentDimensionIndex = 0; // Usado para rastrear a dimensão atual
+        let assessmentData = {};
+        let institutionalData = {};
+        let questionnaireData = {}; // Para respostas Likert e novas dimensões (D12, D13)
+        let operationalFinancialData = {}; // Para Indicadores Operacionais e Financeiros
+        let classificationData = {}; // Para autoavaliação e dados de contato finais
+        let totalFormSteps = 0; // Nova variável para o total de passos no questionário
+
+        // Estrutura de dados do questionário - Atualizada
+        const assessmentStructure = {
+            "title": "Questionário de Maturidade Operacional",
+            "dimensions": [
+                {
+                    "id": "d1",
+                    "name": "Dimensão 1: Governança Estratégica e Liderança",
+                    "questions": [
+                        { "id": "q1_1", "text": "A alta direção demonstra comprometimento visível com a eficiência operacional através de recursos e participação ativa" },
+                        { "id": "q1_2", "text": "A governança clínica está integrada à gestão operacional para otimização de resultados." },
+                        { "id": "q1_3", "text": "Recursos financeiras e humanos são alocados priorizando iniciativas de eficiência comprovada" },
+                        { "id": "q1_4", "text": "Indicadores de eficiência são utilizados sistematicamente em decisões táticas e estratégicas" },
+                        { "id": "q1_5", "text": "A estrutura organizacional do hospital é adequada para tomada de decisões de forma ágil e eficiente." },
+                        { "id": "q1_6", "text": "A infraestrutura do hospital é adequada para atendimento com qualidade e eficiência" }
+                    ]
+                },
+                {
+                    "id": "d2",
+                    "name": "Dimensão 2: Gestão de Processos e Melhoria Contínua",
+                    "questions": [
+                        { "id": "q2_1", "text": "Processos críticos (emergência, centro cirúrgico, internação) estão mapeados e documentados" },
+                        { "id": "q2_2", "text": "Metodologias como Lean, Kaizen e PDCA são aplicadas para eliminar desperdícios" },
+                        { "id": "q2_3", "text": "Há programa formal de melhoria contínua com equipe dedicada" },
+                        { "id": "q2_4", "text": "Revisões de processos incorporam feedback de profissionais, pacientes e dados objetivos" },
+                        { "id": "q2_5", "text": "O agendamento cirúrgico é padronizado e automatizado." },
+                        { "id": "q2_6", "text": "O fluxo de solicitação de OPME e autorização cirúrgica ocorre sem retrabalhos." },
+                        { "id": "q2_7", "text": "O planejamento cirúrgico (bate mapa) garante a realização de todas as cirurgias programadas" },
+                        { "id": "q2_8", "text": "O registro de materiais na sala cirúrgica é feito em tempo real" },
+                        { "id": "q2_9", "text": "O processo de alta do paciente é padronizado e pontual, com prazos e metas definidos" },
+                        { "id": "q2_10", "text": "Manutenções programadas são executadas conforme o cronograma, garantindo disponibilidade de equipamentos" },
+                        { "id": "q2_11", "text": "A equipe de limpeza libera leitos/salas dentro do prazo estabelecido após procedimentos." }
+                    ]
+                },
+                {
+                    "id": "d3",
+                    "name": "Dimensão 3: Gestão Financeira e Controle de Custos",
+                    "questions": [
+                        { "id": "q3_1", "text": "Glosas são analisadas por causa-raiz e geram ações corretivas eficazes" },
+                        { "id": "q3_2", "text": "Custos operacionais são monitorados por meio de benchmarks setoriais e relatórios integrados." },
+                        { "id": "q3_3", "text": "Existem mecanismos para otimizar o ciclo de receitas e reduzir o prazo médio de recebimento" },
+                        { "id": "q3_4", "text": "A gestão de materiais e estoques utiliza critérios técnicos para equilibrar custo e disponibilidade." },
+                        { "id": "q3_5", "text": "A documentação assistencial é completa, minimizando ocorrências de glosas" }
+                    ]
+                },
+                {
+                    "id": "d4",
+                    "name": "Dimensão 4: Tecnologia da Informação e Integração de Sistemas",
+                    "questions": [
+                        { "id": "q4_1", "text": "Sistemas integrados (PEP, ERP, BI) fornecem dados em tempo real e alertas automáticos," },
+                        { "id": "q4_2", "text": "A integração de sistemas elimina retrabalhos e mantém fluxo contínuo de informações." },
+                        { "id": "q4_3", "text": "Processos de cadastro e admissão hospitalar são totalmente automatizados" },
+                        { "id": "q4_4", "text": "A gestão de leitos é feita com ferramentas que garantem disponibilidade aos pacientes." },
+                        { "id": "q4_5", "text": "O processo de autorização de procedimentos (token, SMS, e-mail) é eficiente e sem falhas." }
+                    ]
+                },
+                {
+                    "id": "d5",
+                    "name": "Dimensão 5: Gestão de Pessoas e Capacitação", 
+                    "questions": [
+                        { "id": "q5_1", "text": "O dimensionamento de equipes considera carga de trabalho e complexidade assistencial" },
+                        { "id": "q5_2", "text": "Programas de capacitação incluem práticas de eficiência operacional e melhoria contínua." },
+                        { "id": "q5_3", "text": "A comunicação entre áreas e equipes facilita a resolução rápida de problemas operacionais" },
+                        { "id": "q5_4", "text": "Indicadores de satisfação do colaborador são monitorados para orientar ações preventivas" },
+                        { "id": "q5_5", "text": "Equipes de apoio (limpeza, transporte) são dimensionadas e treinadas para atender à demanda." },
+                        { "id": "q5_6", "text": "Profissionais recebem capacitação contínua para uso eficiente das tecnologias disponíveis" }
+                    ]
+                },
+                {
+                    "id": "d6",
+                    "name": "Dimensão 6: Qualidade Assistencial e Segurança do Paciente",
+                    "questions": [
+                        { "id": "q6_1", "text": "Protocolos clínicos são otimizados continuamente para equilibrar qualidade e eficiência" },
+                        { "id": "q6_2", "text": "Satisfação e experiência do paciente são monitoradas e direcionam melhorias processuais." },
+                        { "id": "q6_3", "text": "Indicadores de qualidade assistencial são usados para otimizar processos de cuidado," },
+                        { "id": "q6_4", "text": "O transporte de pacientes ocorre de forma ágil e pontual." },
+                        { "id": "q6_5", "text": "A coordenação entre equipe cirúrgica, anestesia e apoio minimiza o tempo de giro de sala" },
+                        { "id": "q6_6", "text": "O tempo de espera na jornada do paciente (triagem, cadastro, atendimento) é adequado" },
+                        { "id": "q6_7", "text": "O tempo de espera pós-consulta (medicação, exame, procedimento) é adequado." },
+                        { "id": "q6_8", "text": "A comunicação entre equipes assistenciais e de apoio minimiza riscos e aumenta a eficiência" }
+                    ]
+                },
+                {
+                    "id": "d7",
+                    "name": "Dimensão 7: Indicadores de Performance e Benchmarking",
+                    "questions": [
+                        { "id": "q7_1", "text": "Há sistema de indicadores operacionais estruturado, atualizado e monitorado regularmente." },
+                        { "id": "q7_2", "text": "Desempenho operacional é comparado externamente via benchmarking" },
+                        { "id": "q7_3", "text": "Ferramentas de gestão visual (painéis, quadros) são usadas para monitoramento contínuo" },
+                        { "id": "q7_4", "text": "Recebimento e conferência de OPME e MAT/MED cumprem os padrões definidos" },
+                        { "id": "q7_5", "text": "Serviços de apoio (limpeza, transporte, alimentação, medicação) cumprem os padrões estabelecidos em contrato," }
+                    ]
+                },
+                {
+                    "id": "d8",
+                    "name": "Dimensão 8: Cultura Organizacional e Engajamento",
+                    "questions": [
+                        { "id": "q8_1", "text": "A cultura organizacional valoriza e incentiva iniciativas de melhoria contínua." },
+                        { "id": "q8_2", "text": "Existem canais formais para que profissionais proponham melhorias nos processos." },
+                        { "id": "q8_3", "text": "Eventos adversos e erros são analisados sem culpabilização, promovendo aprendizado." },
+                        { "id": "q8_4", "text": "Sucessos e melhorias são reconhecidos e disseminados para incentivar boas práticas." }
+                    ]
+                },
+                {
+                    "id": "d9",
+                    "name": "Dimensão 9: Inovação e Sustentabilidade", 
+                    "questions": [
+                        { "id": "q9_1", "text": "A instituição adapta-se rapidamente a mudanças regulatórias e de mercado." },
+                        { "id": "q9_2", "text": "Novas tecnologias e metodologias são avaliadas e implementadas para melhorar a eficiência" },
+                        { "id": "q9_3", "text": "Parcerias externas são utilizadas para otimizar recursos e promover Inovação." },
+                        { "id": "q9_4", "text": "Práticas sustentáveis estão integradas aos processos para reduzir desperdícios" },
+                        { "id": "q9_5", "text": "O impacto social das ações de eficiência é considerado nas decisões de gestão" },
+                        { "id": "q9_6", "text": "Resultados de eficiência operacional se traduzem em melhores desfechos para pacientes" }
+                    ]
+                },
+                {
+                    "id": "d10",
+                    "name": "Dimensão 10: Contexto Brasileiro", 
+                    "questions": [
+                        { "id": "q10_1", "text": "Análise de glosas segue metodologia de Causa-raiz conforme normativas CFM/ANS" },
+                        { "id": "q10_2", "text": "Sistemas de informação estão preparados para integração com DATASUS e sistemas governamentais" },
+                        { "id": "q10_3", "text": "Protocolos assistenciais seguem diretrizes nacionais (ANS CFM, MS) adaptadas localmente" },
+                        { "id": "q10_4", "text": "A instituição participa de programas de melhoria do SUS (PMAQ PNASH etc.)" },
+                        { "id": "q10_5", "text": "Indicadores operacionais são comparados com benchmarks nacionais e regionais" },
+                        { "id": "q10_6", "text": "Ações para ESG estão integradas à estratégia de eficiência operacional" }
+                    ]
+                },
+                {
+                    "id": "d11", 
+                    "name": "Dimensão 11: Tecnologias e Sistemas",
+                    "questions": [
+                        { "id": "q11_1", "text": "Avalie a utilização de tecnologias e sistemas de PEP (Prontuário Eletrônico do Paciente)", "type": "radio", "options": ["Não utiliza", "Parcial", "Total"] },
+                        { "id": "q11_2", "text": "Avalie a utilização de tecnologias e sistemas de Prescrição Eletrônica", "type": "radio", "options": ["Não utiliza", "Parcial", "Total"] },
+                        { "id": "q11_3", "text": "Avalie a utilização de tecnologias e sistemas de BI para Gestão e Operação", "type": "radio", "options": ["Não utiliza", "Básico - poucas pessoas ou times utilizam", "Intermediário - interativo em tempo real", "Avançado corporativo e preditivo"] },
+                        { "id": "q11_4", "text": "Avalie a utilização de tecnologias e sistemas de IoT para rastreamento", "type": "radio", "options": ["Não utiliza", "Ativos (instrumentos, beira leito, equipamentos)", "Pacientes (internação, centro cirúrgico, emergência)", "Ambos (ativos e pacientes)"] },
+                        { "id": "q11_5", "text": "Avalie a utilização de tecnologias e sistemas de Integração entre Sistemas de Tecnologia", "type": "radio", "options": ["Não há integração/Manual", "Parcial", "Total/Automatizada"] }
+                    ]
+                },
+                {
+                    "id": "d12", 
+                    "name": "Dimensão 12: Iniciativas de Melhoria Contínua",
+                    "questions": [
+                        { "id": "q12_1", "text": "Marque as iniciativas de Melhoria Contínua implementadas e adotadas atualmente pela instituição", "type": "checkbox", "options": ["Programa 5S", "Eventos Kaizen", "Mapeamento de Fluxo de Valor (VSM, VSD)", "Gestão Visual (Obeya, War Room)", "Ciclo PDCA", "DMAIC", "Outra"], "hasOtherText": true }
+                    ]
+                }
+            ],
+            "operational_financial_questions": [ 
+                { "id": "ofi1", "text": "Qual a taxa média de ocupação de leito nos últimos três meses? (Preencha apenas o número da porcentagem - ex: 80 para 80%)", "type": "number", "min": 0, "max": 100 },
+                { "id": "ofi2", "text": "Qual a duração média de permanência no primeiro trimestre de 2025? (Preencha um número de dias - ex: 4)", "type": "number", "min": 0 },
+                { "id": "ofi3", "text": "Qual o número médio de atendimento na EMERGÊNCIA por mês no primeiro trimestre de 2025? (Preencha um número de pacientes - ex: 100)", "type": "number", "min": 0 },
+                { "id": "ofi4", "text": "Qual o número médio de atendimento no AMBULATÓRIO por mês no primeiro trimestre de 2025? (Preencha um número de pacientes - ex: 100)", "type": "number", "min": 0 },
+                { "id": "ofi5", "text": "Qual o número médio de INTERNAÇÕES por mês no primeiro trimestre de 2025? (Preencha um número de pacientes - ex: 100)", "type": "number", "min": 0 },
+                { "id": "ofi6", "text": "Qual o número médio de CIRURGIAS por mês no primeiro trimestre de 2025? (Preencha um número de pacientes - ex: 100)", "type": "number", "min": 0 },
+                { "id": "ofi7", "text": "Qual o tempo médio (lead time) da EMERGÊNCIA - chegada do paciente até 1ª avaliação médica, no primeiro trimestre do ano? (Preencha um número em minutos - ex: 30)", "type": "number", "min": 0 },
+                { "id": "ofi8", "text": "Qual o tempo médio (lead time) da EMERGÊNCIA - decisão médica até saída/transferência do paciente, no primeiro trimestre do ano? (Preencha um número em minutos - ex: 30)", "type": "number", "min": 0 },
+                { "id": "ofi9", "text": "Qual o tempo médio (lead time) da AUTORIZAÇÃO CIRÚRGICA/PROCEDIMENTO no primeiro trimestre do ano? (Preencha um número em dias - ex: 10)", "type": "number", "min": 0 },
+                { "id": "ofi10", "text": "Qual a taxa média de REALIZAÇÃO DE AVISO CIRÚRGICO no primeiro trimestre do ano? (Preencha apenas o número da porcentagem - ex: 80 para 80%)", "type": "number", "min": 0, "max": 100 },
+                { "id": "ofi11", "text": "Qual o tempo médio (lead time) do GIRO DE SALA CIRÚRGICA no primeiro trimestre do ano? (Preencha um número em minutos - ex: 10)", "type": "number", "min": 0 },
+                { "id": "ofi12", "text": "Qual o tempo médio (lead time) da LIBERAÇÃO DE LEITO DE INTERNAÇÃO no primeiro trimestre do ano? (Preencha um número em minutos - ex: 10)", "type": "number", "min": 0 },
+                { "id": "ofi13", "text": "Qual a taxa de realização de avisos cirúrgicos (agendado vs. realizado), no primeiro trimestre do ano? (Preencha apenas o número da porcentagem - ex: 90 para 90%)", "type": "number", "min": 0, "max": 100 },
+                { "id": "ofi14", "text": "Qual a taxa de aderência para alta hospitalar (alta realizada em até +/-1h do previsto), no primeiro trimestre do ano? (Preencha apenas o número da porcentagem - ex: 85 para 85%)", "type": "number", "min": 0, "max": 100 },
+                { "id": "ofi15", "text": "Qual a margem EBITDA (em %), no primeiro trimestre do ano? (Preencha apenas o número da porcentagem - ex: 15 para 15%)", "type": "number", "min": -100, "max": 100 }, /* EBITDA can be negative */
+                { "id": "ofi16", "text": "Qual a taxa de glosa contábil (final), no primeiro trimestre do ano? (Preencha apenas o número da porcentagem - ex: 1.5 para 1.5%)", "type": "number", "step": 0.1, "min": 0, "max": 100 },
+                { "id": "ofi17", "text": "Qual a taxa de glosa gerencial (inicial), no primeiro trimestre do ano? (Preença apenas o número da porcentagem - ex: 15 para 15%)", "type": "number", "step": 0.1, "min": 0, "max": 100 },
+                { "id": "ofi18", "text": "Qual o prazo médio de recebimento (PMR, em dias), no primeiro trimestre do ano? (Preencha o número de dias - ex: 45)", "type": "number", "min": 0 },
+                { "id": "ofi19", "text": "Qual a taxa de contas sem pendências (limpa) na alta administrativa, no primeiro trimestre do ano? (Preencha apenas o número da porcentagem - ex: 90 para 90%)", "type": "number", "min": 0, "max": 100 }
+            ],
+            "classification_questions": [
+                // Movidos para cá do formulário institucional
+                { "id": "cq_grossRevenue", "text": "Faturamento Operacional Bruto Anual (ROB) (R$)*", "type": "select", "options": ["< 50 milhões", "Entre 50 milhões e 200 milhões", "Entre 200 milhões e 500 milhões", "> 500 milhões"], "required": true },
+                { "id": "cq_accreditations", "text": "21. Certificações e acreditações (selecione no máximo 6 opções)", "type": "checkbox", "options": ["ONA 1", "ONA 2", "ONA 3", "JCI", "HIMSS", "NIAHO", "HSO", "Outra"], "maxSelection": 6, "required": true, "hasOtherText": true },
+                
+                // Perguntas existentes de classificação / autoavaliação / contato (reindexadas)
+                {
+                    "id": "cq1",
+                    "text": "Em uma escala de 1-5, classifique o nível geral de eficiência operacional da instituição:",
+                    "type": "radio",
+                    "options": ["1", "2", "3", "4", "5"]
+                },
+                {
+                    "id": "cq2",
+                    "text": "Qual o principal fator limitante para avançar na maturidade operacional?",
+                    "type": "textarea"
+                },
+                {
+                    "id": "cq3",
+                    "text": "Em quanto tempo estima que a instituição poderia avançar um nível de maturidade com investimentos adequados?",
+                    "type": "textarea"
+                },
+                { "id": "cq4", "text": "O que melhor descreve seu cargo e papel na instituição?", "type": "radio", "options": ["Assistência", "Gestão/Liderança", "Administração/Operação"], "required": true }, 
+                { "id": "cq5", "text": "Gostaria de fazer parte de uma pesquisa mais profunda sobre Eficiência Operacional?", "type": "radio", "options": ["Sim", "Não"], "required": true }, 
+                { "id": "cq6", "text": "A instituição contratou consultoria externa nos últimos 12 meses?", "type": "radio", "options": ["Sim", "Não"], "required": true }, 
+                { "id": "cq7", "text": "A instituição possui uma área corporativa e dedicada para Melhoria Contínua e Eficiência Operacional?", "type": "radio", "options": ["Sim", "Não"], "required": true }, 
+                { "id": "cq8", "text": "A instituição deseja participar da construção de um estudo de caso em profundidade?", "type": "radio", "options": ["Sim", "Não"], "required": true }, 
+                // cq9 (Confirmo interesse...) foi removido conforme sua solicitação
+                { "id": "cq9", "text": "Confirme o seu e-mail corporativo *", "type": "email", "required": true }, 
+                { "id": "cq10", "text": "Informe um número de telefone para contato * (Apenas números)", "type": "tel", "required": true, "pattern": "[0-9]{10,11}" }, 
+                { "id": "cq11", "text": "Confirme o nome da instituição *", "type": "text", "required": true } 
+            ],
+            "maturity_levels": {
+                "1": { "name": "Inexistente", "range": [1.0, 1.5], "description": "Nenhum processo formal; ações apenas reativas." },
+                "2": { "name": "Básico", "range": [1.5, 2.5], "description": "Processo parcialmente adotado, sem padronização ou monitoramento regular." },
+                "3": { "name": "Padronizado", "range": [2.5, 3.5], "description": "Processo claramente documentado e conhecido pelas equipes." },
+                "4": { "name": "Gerenciado", "range": [3.5, 4.5], "description": "Processo padronizado, monitorado regularmente, com ajustes pontuais." },
+                "5": { "name": "Avançado", "range": [4.5, 5.0], "description": "Processo digitalizado, automatizado, integrado e com melhoria contínua." }
+            }
+        };
+
+        // Inicializa a aplicação
+        document.addEventListener('DOMContentLoaded', function() {
+            // Calcula o total de passos do formulário uma vez que a estrutura é carregada
+            totalFormSteps = 1 + // Formulário Institucional
+                             assessmentStructure.dimensions.length + // Todas as Dimensões
+                             1 + // Indicadores Operacionais e Financeiros
+                             assessmentStructure.classification_questions.length; // Perguntas de Classificação
+
+            initializeApp();
+            updateOverallProgressBar(); // Atualiza a barra de progresso inicial
+        });
+
+        function initializeApp() {
+            // Inicializa as estruturas de dados
+            questionnaireData = {};
+            assessmentStructure.dimensions.forEach(dimension => {
+                questionnaireData[dimension.id] = {};
+                dimension.questions.forEach(question => {
+                    if (question.type === 'radio' || question.type === 'text' || question.type === 'number' || question.type === 'select') {
+                        questionnaireData[dimension.id][question.id] = null;
+                    } else if (question.type === 'checkbox') {
+                        questionnaireData[dimension.id][question.id] = [];
+                    } else { // Default to Likert if type is undefined
+                        questionnaireData[dimension.id][question.id] = { maturity: null };
+                    }
+                });
+            });
+
+            operationalFinancialData = {};
+            assessmentStructure.operational_financial_questions.forEach(q => {
+                operationalFinancialData[q.id] = null;
+            });
+
+            classificationData = {};
+            assessmentStructure.classification_questions.forEach(q => {
+                if (q.type === 'checkbox') {
+                    classificationData[q.id] = [];
+                } else {
+                    classificationData[q.id] = null;
+                }
+            });
+
+            setupFormHandlers();
+            showPage('landing-page');
+        }
+
+        function setupFormHandlers() {
+            const institutionForm = document.getElementById('institution-form');
+            if (institutionForm) {
+                institutionForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    handleInstitutionForm();
+                });
+            }
+        }
+
+        // Navegação de página
+        function showPage(pageId) {
+            document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
+            const targetPage = document.getElementById(pageId);
+            if (targetPage) {
+                targetPage.classList.add('active');
+                currentPage = pageId;
+            }
+            updateOverallProgressBar(); // Atualiza a barra de progresso em cada mudança de página
+        }
+
+        function startAssessment() {
+            showPage('institutional-form'); 
+        }
+
+        function goToLanding() {
+            showPage('landing-page');
+        }
+
+        function handleInstitutionForm() {
+            const legalNatureRadios = document.querySelectorAll('input[name="legal-nature"]:checked');
+            const legalNature = legalNatureRadios.length > 0 ? legalNatureRadios[0].value : null;
+
+            institutionalData = {
+                name: document.getElementById('institution-name').value,
+                respondentFullName: document.getElementById('respondent-full-name').value,
+                respondentEmail: document.getElementById('respondent-email').value,
+                respondentArea: document.getElementById('respondent-area').value,
+                respondentRole: document.getElementById('respondent-role').value,
+                experienceTime: document.getElementById('experience-time').value, 
+                region: document.getElementById('region').value,
+                type: document.getElementById('institution-type').value,
+                legalNature: legalNature,
+                beds: document.getElementById('beds-count').value,
+            };
+
+            const requiredFields = [
+                'name', 'respondentFullName', 'respondentEmail', 'respondentArea',
+                'respondentRole', 'experienceTime', 'region', 'type', 'legalNature', 'beds'
+            ];
+            
+            if (requiredFields.some(field => !institutionalData[field] || (typeof institutionalData[field] === 'string' && institutionalData[field].trim() === ''))) {
+                showNotification('Por favor, preencha todos os campos obrigatórios nos Dados Institucionais.', 'error');
+                return;
+            }
+
+            currentDimensionIndex = 0;
+            loadQuestionnaire();
+            showPage('assessment-questionnaire');
+        }
+
+        function loadQuestionnaire() {
+            const questionsContainer = document.getElementById('questions-container');
+            questionsContainer.innerHTML = '';
+
+            const currentDimension = assessmentStructure.dimensions[currentDimensionIndex];
+            
+            document.getElementById('dimension-title').textContent = currentDimension.name;
+            document.getElementById('dimension-description').textContent = "Para cada uma das perguntas abaixo, avalie o grau de maturidade da sua instituição com base na escala de 1 a 5.";
+            
+            const dimensionGroup = document.createElement('div');
+            dimensionGroup.className = 'dimension-group';
+            
+            currentDimension.questions.forEach(question => {
+                const questionCard = createQuestionCardForDimension(question, currentDimension.id);
+                dimensionGroup.appendChild(questionCard);
+            });
+            questionsContainer.appendChild(dimensionGroup);
+            
+            updateOverallProgressBar(); // Atualiza a barra de progresso
+            updateNavigationButtons();
+            restoreDimensionAnswers(); 
+        }
+
+        function createQuestionCardForDimension(question, dimensionId) {
+            const card = document.createElement('div');
+            card.className = 'question-card';
+            let inputHtml = '';
+
+            if (question.type === 'radio') {
+                inputHtml = `<div class="options-group">${question.options.map((opt, index) => `
+                    <div class="radio-option">
+                        <input type="radio" id="${dimensionId}_${question.id}_${index}" name="${dimensionId}_${question.id}" value="${opt}" onchange="saveDimensionAnswer('${dimensionId}', '${question.id}', '${opt}')">
+                        <label for="${dimensionId}_${question.id}_${index}">${opt}</label>
+                    </div>
+                `).join('')}</div>`;
+            } else if (question.type === 'checkbox') {
+                 inputHtml = `<div class="options-group">${question.options.map((opt, index) => {
+                    const checkboxId = `${dimensionId}_${question.id}_${index}`;
+                    const isOther = opt.toLowerCase() === 'outra' || opt.toLowerCase() === 'outros';
+                    let otherInput = '';
+                    if (isOther && question.hasOtherText) {
+                        otherInput = `<div class="other-input-container" style="display:none;">
+                                        <input type="text" id="${checkboxId}_other_text" class="form-control" placeholder="Especifique 'Outra'">
+                                      </div>`;
+                    }
+                    return `
+                        <div class="checkbox-option">
+                            <input type="checkbox" id="${checkboxId}" name="${dimensionId}_${question.id}" value="${opt}" onchange="handleCheckboxWithOtherText('${dimensionId}', '${question.id}', '${opt}', this.checked, '${checkboxId}_other_text')">
+                            <label for="${checkboxId}">${opt}</label>
+                        </div>
+                        ${otherInput}
+                    `;
+                 }).join('')}</div>`;
+            } else { // Default to Likert if type is undefined (for d1-d10 Likert questions)
+                let likertOptions = '';
+                for (let i = 1; i <= 5; i++) {
+                    const name = `${dimensionId}_${question.id}_maturity`;
+                    likertOptions += `
+                        <div class="likert-option">
+                            <input type="radio" id="${name}_${i}" name="${name}" value="${i}" onchange="saveDimensionAnswer('${dimensionId}', '${question.id}', ${i}, 'likert')">
+                            <label for="${name}_${i}">${i}</label>
+                        </div>
+                    `;
+                }
+                inputHtml = `<div class="likert-scale">${likertOptions}</div>`;
+            }
+
+            card.innerHTML = `
+                <div class="question-text">${question.text}</div>
+                ${inputHtml}
+            `;
+            return card;
+        }
+
+        // Consolidated function for saving answers in dimension questions
+        function saveDimensionAnswer(dimensionId, questionId, value, type) {
+            if (!questionnaireData[dimensionId]) {
+                questionnaireData[dimensionId] = {};
+            }
+            if (type === 'likert') {
+                questionnaireData[dimensionId][questionId] = { maturity: parseInt(value, 10) };
+            } else {
+                questionnaireData[dimensionId][questionId] = value;
+            }
+        }
+
+        function handleCheckboxWithOtherText(dimensionId, questionId, optionValue, isChecked, otherTextInputId) {
+            const otherTextInput = document.getElementById(otherTextInputId);
+            const isOtherOption = (optionValue.toLowerCase() === 'outra' || optionValue.toLowerCase() === 'outros');
+
+            if (isOtherOption && otherTextInput) {
+                if (isChecked) {
+                    otherTextInput.parentNode.style.display = 'block'; // Show the container
+                    // Add listener to update value when text changes
+                    otherTextInput.oninput = () => {
+                        updateCheckboxValueWithOther(dimensionId, questionId, optionValue, otherTextInput.value, isChecked);
+                    };
+                    // Immediately update with current value if any
+                    updateCheckboxValueWithOther(dimensionId, questionId, optionValue, otherTextInput.value, isChecked);
+                } else {
+                    otherTextInput.parentNode.style.display = 'none'; // Hide the container
+                    otherTextInput.value = ''; // Clear text
+                    updateCheckboxValueWithOther(dimensionId, questionId, optionValue, '', isChecked); // Remove from saved data
+                }
+            } else {
+                saveDimensionCheckboxAnswer(dimensionId, questionId, optionValue, isChecked);
+            }
+        }
+
+        function updateCheckboxValueWithOther(dimensionId, questionId, originalOption, otherText, isChecked) {
+            if (!questionnaireData[dimensionId]) {
+                questionnaireData[dimensionId] = {};
+            }
+            if (!Array.isArray(questionnaireData[dimensionId][questionId])) {
+                questionnaireData[dimensionId][questionId] = [];
+            }
+
+            const currentSelections = questionnaireData[dimensionId][questionId];
+            const formattedOption = otherText ? `${originalOption}: ${otherText}` : originalOption;
+            const originalIndex = currentSelections.indexOf(originalOption);
+            const formattedIndex = currentSelections.indexOf(`${originalOption}: ${otherText}`);
+
+            if (isChecked) {
+                // Remove original 'Outra' if it exists without text
+                if (originalIndex > -1) {
+                    currentSelections.splice(originalIndex, 1);
+                }
+                // Add the new formatted option if not already present
+                if (!currentSelections.includes(formattedOption)) {
+                    currentSelections.push(formattedOption);
+                }
+            } else {
+                // Remove both original and formatted 'Outra'
+                if (originalIndex > -1) {
+                    currentSelections.splice(originalIndex, 1);
+                }
+                if (formattedIndex > -1) {
+                    currentSelections.splice(formattedIndex, 1);
+                }
+            }
+            // Ensure other options are still correctly managed by saveDimensionCheckboxAnswer
+            // This is complex because we are mixing direct manipulation with the original function.
+            // A simpler approach for 'other' is to track it separately.
+            // For now, the above should work by manipulating the array.
+        }
+
+        // Original saveDimensionCheckboxAnswer modified to be called for non-'Outra' options or internal logic
+        function saveDimensionCheckboxAnswer(dimensionId, questionId, optionValue, isChecked) {
+            if (!questionnaireData[dimensionId]) {
+                questionnaireData[dimensionId] = {};
+            }
+            if (!Array.isArray(questionnaireData[dimensionId][questionId])) {
+                questionnaireData[dimensionId][questionId] = []; // Initialize as array for checkboxes
+            }
+
+            const currentSelections = questionnaireData[dimensionId][questionId];
+            if (isChecked) {
+                if (!currentSelections.includes(optionValue)) {
+                    currentSelections.push(optionValue);
+                }
+            } else {
+                const index = currentSelections.indexOf(optionValue);
+                if (index > -1) {
+                    currentSelections.splice(index, 1);
+                }
+                // Also remove any "Outra: [text]" associated with this option if it was previously set
+                const otherTextIndex = currentSelections.findIndex(item => item.startsWith(`${optionValue}:`));
+                if (otherTextIndex > -1) {
+                    currentSelections.splice(otherTextIndex, 1);
+                }
+            }
+        }
+
+
+        function restoreDimensionAnswers() {
+            const currentDimension = assessmentStructure.dimensions[currentDimensionIndex];
+            const dimId = currentDimension.id;
+
+            currentDimension.questions.forEach(question => {
+                const qId = question.id;
+                const answer = questionnaireData[dimId] ? questionnaireData[dimId][qId] : null;
+
+                if (question.type === 'radio') {
+                    if (answer) {
+                        const radio = document.querySelector(`input[name="${dimId}_${qId}"][value="${answer}"]`);
+                        if (radio) radio.checked = true;
+                    }
+                } else if (question.type === 'checkbox') {
+                    if (Array.isArray(answer)) {
+                        answer.forEach(val => {
+                            const checkbox = document.querySelector(`input[name="${dimId}_${qId}"][value="${val}"]`);
+                            if (checkbox) checkbox.checked = true;
+                            
+                            // Restore other text if applicable
+                            const isOther = val.toLowerCase().startsWith('outra:');
+                            if (isOther) {
+                                const originalOption = question.options.find(opt => opt.toLowerCase() === 'outra' || opt.toLowerCase() === 'outros');
+                                if (originalOption) {
+                                    const otherText = val.substring(`${originalOption}: `.length);
+                                    const otherTextInputId = `${dimId}_${qId}_${question.options.indexOf(originalOption)}_other_text`;
+                                    const otherTextInput = document.getElementById(otherTextInputId);
+                                    if (otherTextInput) {
+                                        otherTextInput.parentNode.style.display = 'block';
+                                        otherTextInput.value = otherText;
+                                    }
+                                }
+                            }
+                        });
+                    }
+                } else { // Likert type
+                    if (answer && answer.maturity) {
+                        const radio = document.querySelector(`input[name="${dimId}_${qId}_maturity"][value="${answer.maturity}"]`);
+                        if (radio) radio.checked = true;
+                    }
+                }
+            });
+        }
+
+        function validateCurrentDimensionQuestions() {
+            const currentDimension = assessmentStructure.dimensions[currentDimensionIndex];
+            const dimId = currentDimension.id;
+
+            for (const q of currentDimension.questions) {
+                const answer = questionnaireData[dimId] ? questionnaireData[dimId][q.id] : null;
+
+                // For Likert questions (where question.type is undefined)
+                if (q.type === undefined) { 
+                    if (!answer || answer.maturity === null) {
+                        showNotification('Por favor, responda todas as perguntas desta dimensão antes de prosseguir.', 'error');
+                        return false;
+                    }
+                } 
+                // For radio button questions
+                else if (q.type === 'radio') {
+                    if (answer === null || answer === '') {
+                        showNotification('Por favor, selecione uma opção para todas as perguntas desta dimensão.', 'error');
+                        return false;
+                    }
+                } 
+                // For checkbox questions
+                else if (q.type === 'checkbox') {
+                    if (!Array.isArray(answer) || answer.length === 0) {
+                        showNotification('Por favor, marque pelo menos uma opção para a pergunta de checklist.', 'error');
+                        return false;
+                    }
+                    if (q.maxSelection && answer.length > q.maxSelection) {
+                        showNotification(`Por favor, selecione no máximo ${q.maxSelection} opções para a pergunta de checklist.`, 'error');
+                        return false;
+                    }
+                    // Validate "Outra" text field if checked
+                    const otherOptionValue = q.options.find(opt => opt.toLowerCase() === 'outra' || opt.toLowerCase() === 'outros');
+                    if (otherOptionValue && answer.includes(`${otherOptionValue}: `)) { // Check if "Outra: " is in the saved answer
+                        const otherTextFromSaved = answer.find(item => item.startsWith(`${otherOptionValue}: `));
+                        const actualOtherText = otherTextFromSaved ? otherTextFromSaved.substring(`${otherOptionValue}: `.length).trim() : '';
+                        if (actualOtherText === '') {
+                            showNotification('Por favor, especifique o texto para a opção "Outra/Outros".', 'error');
+                            return false;
+                        }
+                    }
+                }
+            }
+            return true;
+        }
+
+        // Nova função para atualizar a barra de progresso geral
+        function updateOverallProgressBar() {
+            let currentStepNumber = 0;
+            const totalDimensions = assessmentStructure.dimensions.length;
+            const totalOFIQuestions = assessmentStructure.operational_financial_questions.length;
+            const totalClassificationQuestions = assessmentStructure.classification_questions.length;
+
+            // Recalculate totalFormSteps if it hasn't been done or needs to be dynamic
+            if (totalFormSteps === 0) { // Only calculate once or if explicitly reset
+                 totalFormSteps = 1 + // Formulário Institucional (1 passo)
+                                 totalDimensions + // Cada Dimensão Likert/Radio/Checkbox (N passos)
+                                 1 + // Indicadores Operacionais e Financeiros (1 passo)
+                                 1; // Classificação e Contato Final (1 passo, embora possa ter muitas sub-perguntas, é uma tela)
+            }
+            
+            // Determine o número do passo atual
+            if (currentPage === 'institutional-form') {
+                currentStepNumber = 1;
+            } else if (currentPage === 'assessment-questionnaire') {
+                currentStepNumber = 1 + (currentDimensionIndex + 1);
+            } else if (currentPage === 'operational-financial-indicators-page') {
+                currentStepNumber = 1 + totalDimensions + 1;
+            } else if (currentPage === 'classification-questions-page') {
+                currentStepNumber = 1 + totalDimensions + 1 + 1;
+            } else {
+                // Para landing page ou resultados, não incrementa o contador de passos ativo do formulário
+                return; 
+            }
+
+            const percentage = (currentStepNumber / totalFormSteps) * 100;
+
+            // Atualiza todos os elementos da barra de progresso em todas as seções
+            document.getElementById('current-step-display').textContent = currentStepNumber;
+            document.getElementById('total-steps-display').textContent = totalFormSteps;
+            document.getElementById('overall-progress-percentage').textContent = `${Math.round(percentage)}%`;
+            document.getElementById('overall-progress-bar').style.width = `${percentage}%`;
+
+            // Atualiza os outros progress bars, se existirem (assumindo IDs semelhantes)
+            // (Estes são elementos do HTML, não variáveis JS. Eles são atualizados para visualmente espelhar o progresso geral)
+            const progressDisplayOFI = document.getElementById('current-step-display-ofi');
+            const totalDisplayOFI = document.getElementById('total-steps-display-ofi');
+            const percentOFI = document.getElementById('overall-progress-percentage-ofi');
+            const barOFI = document.getElementById('overall-progress-bar-ofi');
+            
+            if (progressDisplayOFI) progressDisplayOFI.textContent = currentStepNumber;
+            if (totalDisplayOFI) totalDisplayOFI.textContent = totalFormSteps;
+            if (percentOFI) percentOFI.textContent = `${Math.round(percentage)}%`;
+            if (barOFI) barOFI.style.width = `${percentage}%`;
+
+            const progressDisplayClass = document.getElementById('current-step-display-class');
+            const totalDisplayClass = document.getElementById('total-steps-display-class');
+            const percentClass = document.getElementById('overall-progress-percentage-class');
+            const barClass = document.getElementById('overall-progress-bar-class');
+
+            if (progressDisplayClass) progressDisplayClass.textContent = currentStepNumber;
+            if (totalDisplayClass) totalDisplayClass.textContent = totalFormSteps;
+            if (percentClass) percentClass.textContent = `${Math.round(percentage)}%`;
+            if (barClass) barClass.style.width = `${percentage}%`;
+        }
+
+
+        function updateNavigationButtons() {
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            const totalDimensions = assessmentStructure.dimensions.length;
+
+            if (currentDimensionIndex === 0) {
+                prevBtn.onclick = goToInstitutionalForm;
+                prevBtn.textContent = "Voltar para Dados Institucionais";
+            } else {
+                prevBtn.onclick = previousDimension;
+                prevBtn.textContent = "Anterior";
+            }
+
+            const isLastDimensionPage = currentDimensionIndex === totalDimensions - 1;
+            
+            if (isLastDimensionPage) {
+                nextBtn.textContent = 'Ir para Indicadores Operacionais';
+                nextBtn.onclick = nextDimensionToOFI;
+            } else {
+                nextBtn.textContent = 'Próximo';
+                nextBtn.onclick = nextDimension;
+            }
+        }
+
+        function goToInstitutionalForm() {
+            showPage('institutional-form');
+        }
+
+        function nextDimension() {
+            if (!validateCurrentDimensionQuestions()) {
+                return; // showNotification já é chamado dentro de validateCurrentDimensionQuestions
+            }
+            const totalDimensions = assessmentStructure.dimensions.length;
+            if (currentDimensionIndex < totalDimensions - 1) {
+                currentDimensionIndex++;
+                loadQuestionnaire();
+            } else {
+                nextDimensionToOFI();
+            }
+        }
+
+        function previousDimension() {
+            if (currentDimensionIndex > 0) {
+                currentDimensionIndex--;
+                loadQuestionnaire();
+            } else {
+                goToInstitutionalForm();
+            }
+        }
+        
+        function nextDimensionToOFI() {
+             if (!validateCurrentDimensionQuestions()) {
+                return; // showNotification já é chamado
+            }
+            loadOperationalFinancialIndicators();
+            showPage('operational-financial-indicators-page');
+        }
+
+        function goToLastDimension() {
+            currentDimensionIndex = assessmentStructure.dimensions.length - 1;
+            loadQuestionnaire();
+            showPage('assessment-questionnaire');
+        }
+
+        function loadOperationalFinancialIndicators() {
+            const container = document.getElementById('ofi-questions-container');
+            container.innerHTML = '';
+
+            assessmentStructure.operational_financial_questions.forEach(q => {
+                const formGroup = document.createElement('div');
+                formGroup.className = 'form-group';
+                if (q.type === 'textarea' || q.type === 'text') {
+                    formGroup.classList.add('form-group--full');
+                }
+
+                let inputHtml = '';
+                if (q.type === 'number') {
+                    inputHtml = `<input type="number" id="${q.id}" name="${q.id}" class="form-control" onchange="saveOFIAnswer('${q.id}', this.value)" ${q.min !== undefined ? `min="${q.min}"` : ''} ${q.max !== undefined ? `max="${q.max}"` : ''} ${q.step ? `step="${q.step}"` : ''}>`;
+                } else if (q.type === 'text') {
+                    inputHtml = `<input type="text" id="${q.id}" name="${q.id}" class="form-control" onchange="saveOFIAnswer('${q.id}', this.value)">`;
+                } else if (q.type === 'textarea') {
+                    inputHtml = `<textarea id="${q.id}" name="${q.id}" class="form-control" rows="3" onchange="saveOFIAnswer('${q.id}', this.value)"></textarea>`;
+                }
+
+                formGroup.innerHTML = `
+                    <label class="form-label" for="${q.id}">${q.text}</label>
+                    ${inputHtml}
+                `;
+                container.appendChild(formGroup);
+            });
+            restoreOFIAnswers();
+            updateOverallProgressBar(); // Atualiza a barra de progresso
+        }
+
+        function saveOFIAnswer(questionId, value) {
+            operationalFinancialData[questionId] = value;
+        }
+
+        function restoreOFIAnswers() {
+            for (const qId in operationalFinancialData) {
+                const answer = operationalFinancialData[qId];
+                if (answer !== null) {
+                    const inputElement = document.getElementById(qId);
+                    if (inputElement) {
+                        inputElement.value = answer;
+                    }
+                }
+            }
+        }
+
+        function validateOFIQuestions() {
+            return true; // OFI questions are not strictly required, allow empty.
+        }
+
+        function nextOFISection() {
+            if (!validateOFIQuestions()) {
+                return; 
+            }
+            loadClassificationQuestions();
+            showPage('classification-questions-page');
+        }
+
+        function goToOFISection() {
+            showPage('operational-financial-indicators-page');
+        }
+
+        function loadClassificationQuestions() {
+            const container = document.getElementById('classification-questions-container');
+            container.innerHTML = '';
+
+            assessmentStructure.classification_questions.forEach(q => {
+                const formGroup = document.createElement('div');
+                formGroup.className = 'form-group';
+                if (q.type === 'textarea' || q.type === 'text' || q.type === 'email' || q.type === 'tel' || q.type === 'select' || q.type === 'checkbox') {
+                    formGroup.classList.add('form-group--full'); // Checkboxes also take full width for the "other" text input
+                }
+                
+                let inputHtml = '';
+                if (q.type === 'radio') {
+                    inputHtml = `<div class="options-group">${q.options.map((opt, index) => `
+                        <div class="radio-option">
+                            <input type="radio" id="${q.id}_${index}" name="${q.id}" value="${opt}" onchange="saveClassificationAnswer('${q.id}', '${opt}')" ${q.required ? 'required' : ''}>
+                            <label for="${q.id}_${index}">${opt}</label>
+                        </div>
+                    `).join('')}</div>`;
+                } else if (q.type === 'checkbox') {
+                    inputHtml = `<div class="options-group">${q.options.map((opt, index) => {
+                        const checkboxId = `${q.id}_${index}`;
+                        const isOther = opt.toLowerCase() === 'outra' || opt.toLowerCase() === 'outros';
+                        let otherInput = '';
+                        if (isOther && q.hasOtherText) {
+                            otherInput = `<div class="other-input-container" style="display:none;">
+                                            <input type="text" id="${checkboxId}_other_text" class="form-control" placeholder="Especifique 'Outra'">
+                                          </div>`;
+                        }
+                        return `
+                            <div class="checkbox-option">
+                                <input type="checkbox" id="${checkboxId}" name="${q.id}" value="${opt}" onchange="handleClassificationCheckboxWithOtherText('${q.id}', '${opt}', this.checked, '${checkboxId}_other_text')" ${q.required ? 'required' : ''}>
+                                <label for="${checkboxId}">${opt}</label>
+                            </div>
+                            ${otherInput}
+                        `;
+                    }).join('')}</div>`;
+                } else if (q.type === 'textarea') {
+                    inputHtml = `<textarea id="${q.id}" name="${q.id}" class="form-control" rows="4" onchange="saveClassificationAnswer('${q.id}', this.value)" ${q.required ? 'required' : ''}></textarea>`;
+                } else if (q.type === 'email') {
+                    inputHtml = `<input type="email" id="${q.id}" name="${q.id}" class="form-control" onchange="saveClassificationAnswer('${q.id}', this.value)" ${q.required ? 'required' : ''}>`;
+                } else if (q.type === 'tel') {
+                    inputHtml = `<input type="tel" id="${q.id}" name="${q.id}" class="form-control" onchange="saveClassificationAnswer('${q.id}', this.value)" ${q.required ? 'required' : ''} ${q.pattern ? `pattern="${q.pattern}"` : ''}>`;
+                } else if (q.type === 'select') {
+                    inputHtml = `<select id="${q.id}" name="${q.id}" class="form-control" onchange="saveClassificationAnswer('${q.id}', this.value)" ${q.required ? 'required' : ''}>
+                        <option value="">Selecione...</option>
+                        ${q.options.map(opt => `<option value="${opt}">${opt}</option>`).join('')}
+                    </select>`;
+                } else { // text type
+                    inputHtml = `<input type="text" id="${q.id}" name="${q.id}" class="form-control" onchange="saveClassificationAnswer('${q.id}', this.value)" ${q.required ? 'required' : ''}>`;
+                }
+                
+                formGroup.innerHTML = `
+                    <label class="form-label" for="${q.id}">${q.text}</label>
+                    ${inputHtml}
+                `;
+                container.appendChild(formGroup);
+            });
+            restoreClassificationAnswers();
+            updateOverallProgressBar(); // Atualiza a barra de progresso
+        }
+
+        function saveClassificationAnswer(questionId, value) {
+            classificationData[questionId] = value;
+        }
+
+        function handleClassificationCheckboxWithOtherText(questionId, optionValue, isChecked, otherTextInputId) {
+            const otherTextInput = document.getElementById(otherTextInputId);
+            const isOtherOption = (optionValue.toLowerCase() === 'outra' || optionValue.toLowerCase() === 'outros');
+
+            if (isOtherOption && otherTextInput) {
+                if (isChecked) {
+                    otherTextInput.parentNode.style.display = 'block';
+                    otherTextInput.oninput = () => {
+                        updateClassificationCheckboxValueWithOther(questionId, optionValue, otherTextInput.value, isChecked);
+                    };
+                    updateClassificationCheckboxValueWithOther(questionId, optionValue, otherTextInput.value, isChecked);
+                } else {
+                    otherTextInput.parentNode.style.display = 'none';
+                    otherTextInput.value = '';
+                    updateClassificationCheckboxValueWithOther(questionId, optionValue, '', isChecked);
+                }
+            } else {
+                saveClassificationCheckboxOnlyAnswer(questionId, optionValue, isChecked);
+            }
+        }
+
+        function updateClassificationCheckboxValueWithOther(questionId, originalOption, otherText, isChecked) {
+            if (!Array.isArray(classificationData[questionId])) {
+                classificationData[questionId] = [];
+            }
+            const currentSelections = classificationData[questionId];
+            const formattedOption = otherText ? `${originalOption}: ${otherText}` : originalOption;
+            
+            // Remove previous versions of this 'other' option
+            const previousOtherIndex = currentSelections.findIndex(item => item.startsWith(`${originalOption}:`) || item === originalOption);
+            if (previousOtherIndex > -1) {
+                currentSelections.splice(previousOtherIndex, 1);
+            }
+
+            if (isChecked) {
+                currentSelections.push(formattedOption);
+            }
+            // If unchecked, it's already removed by the logic above.
+        }
+
+        function saveClassificationCheckboxOnlyAnswer(questionId, optionValue, isChecked) {
+            if (!Array.isArray(classificationData[questionId])) {
+                classificationData[questionId] = [];
+            }
+            const currentSelections = classificationData[questionId];
+            if (isChecked) {
+                if (!currentSelections.includes(optionValue)) {
+                    currentSelections.push(optionValue);
+                }
+            } else {
+                const index = currentSelections.indexOf(optionValue);
+                if (index > -1) {
+                    currentSelections.splice(index, 1);
+                }
+            }
+        }
+
+
+        function restoreClassificationAnswers() {
+            for (const q of assessmentStructure.classification_questions) {
+                const qId = q.id;
+                const answer = classificationData[qId];
+
+                if (q.type === 'radio') {
+                    if (answer) {
+                        const radio = document.querySelector(`input[name="${qId}"][value="${answer}"]`);
+                        if (radio) radio.checked = true;
+                    }
+                } else if (q.type === 'checkbox') {
+                    if (Array.isArray(answer)) {
+                        answer.forEach(val => {
+                            const checkbox = document.querySelector(`input[name="${qId}"][value="${val}"]`);
+                            if (checkbox) checkbox.checked = true;
+                            
+                            const isOther = val.toLowerCase().startsWith('outra:') || val.toLowerCase().startsWith('outros:');
+                            if (isOther && q.hasOtherText) {
+                                const originalOption = q.options.find(opt => opt.toLowerCase() === 'outra' || opt.toLowerCase() === 'outros');
+                                if (originalOption) {
+                                    const otherText = val.substring(`${originalOption}: `.length);
+                                    const otherTextInputId = `${qId}_${q.options.indexOf(originalOption)}_other_text`;
+                                    const otherTextInput = document.getElementById(otherTextInputId);
+                                    if (otherTextInput) {
+                                        otherTextInput.parentNode.style.display = 'block';
+                                        otherTextInput.value = otherText;
+                                    }
+                                }
+                            }
+                        });
+                    }
+                } else { // text, textarea, email, tel, select
+                    const inputElement = document.getElementById(qId);
+                    if (inputElement && answer !== null) {
+                        inputElement.value = answer;
+                    }
+                }
+            }
+        }
+
+        function validateClassificationQuestions() {
+            for (const q of assessmentStructure.classification_questions) {
+                const answer = classificationData[q.id];
+
+                if (q.required) {
+                    if (q.type === 'checkbox') {
+                        if (!Array.isArray(answer) || answer.length === 0) {
+                            showNotification(`Por favor, selecione pelo menos uma opção para o campo obrigatório: "${q.text}"`, 'error');
+                            return false;
+                        }
+                        if (q.maxSelection && answer.length > q.maxSelection) {
+                            showNotification(`Por favor, selecione no máximo ${q.maxSelection} opções para o campo "${q.text}".`, 'error');
+                            return false;
+                        }
+                        // Validate "Outra" text field if checked
+                        const otherOptionValue = q.options.find(opt => opt.toLowerCase() === 'outra' || opt.toLowerCase() === 'outros');
+                        if (otherOptionValue && q.hasOtherText && Array.isArray(answer) && answer.some(item => item.startsWith(`${otherOptionValue}:`))) {
+                           const otherTextFromSaved = answer.find(item => item.startsWith(`${otherOptionValue}:`));
+                           const actualOtherText = otherTextFromSaved ? otherTextFromSaved.substring(`${otherOptionValue}: `.length).trim() : '';
+                           if (actualOtherText === '') {
+                               showNotification('Por favor, especifique o texto para a opção "Outra/Outros".', 'error');
+                               return false;
+                           }
+                        }
+
+                    } else if (answer === null || (typeof answer === 'string' && answer.trim() === '')) {
+                        showNotification(`Por favor, preencha o campo obrigatório: "${q.text}"`, 'error');
+                        return false;
+                    }
+                }
+                
+                // Specific pattern validation for tel
+                if (q.type === 'tel' && q.pattern) {
+                    const value = classificationData[q.id];
+                    if (value && !new RegExp(q.pattern).test(value)) {
+                        showNotification(`O campo "${q.text}" não está no formato correto. Verifique se o número de telefone tem 10 ou 11 dígitos.`, 'error');
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+        
+        function sendDataToSheet(data) {
+            // URL do script do Google Apps Script para receber os dados
+            const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbztO_lqTGHt2q8TfeaeuYU-Q3gHzIHbtLDqOJYoesqtW5LE3sS5RBkzgtuJd6dXjhsO/exec'; // Updated API URL
+            
+            const rowData = {
+                timestamp: data.timestamp,
+                // Dados Institucionais (reordenados e atualizados)
+                institutionName: data.institutional.name,
+                respondentFullName: data.institutional.respondentFullName,
+                respondentEmail: data.institutional.respondentEmail,
+                respondentArea: data.institutional.respondentArea,
+                respondentRole: data.institutional.respondentRole,
+                experienceTime: data.institutional.experienceTime, 
+                region: data.institutional.region,
+                institutionType: data.institutional.type,
+                legalNature: data.institutional.legalNature,
+                bedsCount: data.institutional.beds,
+                
+                // Score Geral e Nível de Maturidade
+                overallScore: data.overallScore.toFixed(1),
+                maturityLevelName: data.maturityLevel.name,
+                maturityLevelDescription: data.maturityLevel.description,
+                
+                // Pontos Fortes e Oportunidades
+                strengths: data.strengths.join('; '),
+                opportunities: data.opportunities.join('; '),
+            };
+
+            // Adiciona scores para cada dimensão
+            assessmentStructure.dimensions.forEach(dim => {
+                const scoreData = data.scores[dim.id];
+                const hasLikertQuestions = dim.questions.some(q => q.type === undefined);
+                if(scoreData && hasLikertQuestions) { // Only include if it's a Likert-based dimension and has a score
+                    rowData[`Score - ${dim.name}`] = scoreData.score.toFixed(1);
+                }
+            });
+
+            // Adiciona respostas individuais das perguntas de dimensão (Likert e novas)
+            assessmentStructure.dimensions.forEach(dim => {
+                dim.questions.forEach(q => {
+                    const questionKey = `Maturidade - ${dim.name} - ${q.text}`;
+                    if (q.type === 'checkbox') {
+                         rowData[questionKey] = Array.isArray(data.responses[dim.id][q.id]) ? data.responses[dim.id][q.id].join(', ') : '';
+                    } else if (q.type === 'radio' || q.type === 'text' || q.type === 'number' || q.type === 'select') {
+                        rowData[questionKey] = data.responses[dim.id][q.id] || "";
+                    }
+                    else { // Likert type (type is undefined)
+                        rowData[questionKey] = data.responses[dim.id][q.id]?.maturity || "";
+                    }
+                });
+            });
+
+            // Adiciona respostas dos Indicadores Operacionais e Financeiros
+            assessmentStructure.operational_financial_questions.forEach(q => {
+                const questionKey = `OFI - ${q.text}`;
+                rowData[questionKey] = data.operationalFinancialResponses[q.id] || "";
+            });
+
+            // Adiciona respostas das perguntas de classificação (incluindo as movidas)
+            assessmentStructure.classification_questions.forEach(q => {
+                const questionKey = `Classificação - ${q.text}`;
+                if (q.type === 'checkbox') {
+                    rowData[questionKey] = Array.isArray(data.classificationResponses[q.id]) ? data.classificationResponses[q.id].join(', ') : '';
+                } else {
+                    rowData[questionKey] = data.classificationResponses[q.id] || "";
+                }
+            });
+            
+            const payload = rowData;
+            
+            showNotification('Enviando respostas...', 'info');
+
+            fetch(SCRIPT_URL, {
+                method: 'POST',
+                mode: 'cors',
+                cache: 'no-cache',
+                headers: { 'Content-Type': 'text/plain;charset=utf-8' }, 
+                body: JSON.stringify(payload),
+            })
+            .then(res => res.json())
+            .then(response => {
+                if (response.result === 'success') {
+                    showNotification('Respostas salvas com sucesso!', 'success');
+                } else {
+                    throw new Error(response.message || 'Erro desconhecido ao salvar.');
+                }
+            })
+            .catch(error => {
+                console.error('Erro ao enviar dados para o Google Sheet:', error);
+                showNotification(`Erro ao salvar: ${error.message}`, 'error');
+            });
+        }
+
+
+        function finishAssessment() {
+            if (!validateClassificationQuestions()) {
+                return; // showNotification já é chamado
+            }
+            calculateResults();
+            showPage('results-dashboard');
+            displayResults();
+            
+            setTimeout(() => {
+                sendDataToSheet(assessmentData);
+            }, 500); 
+        }
+
+        function calculateResults() {
+            assessmentData = {
+                institutional: institutionalData,
+                responses: questionnaireData,
+                operationalFinancialResponses: operationalFinancialData, // New
+                classificationResponses: classificationData,
+                scores: {},
+                overallScore: 0,
+                maturityLevel: null,
+                strengths: [],
+                opportunities: [],
+                timestamp: new Date().toISOString()
+            };
+            
+            let totalScore = 0;
+            let totalLikertQuestions = 0;
+
+            assessmentStructure.dimensions.forEach(dimension => {
+                let dimensionScore = 0;
+                let likertQuestionCount = 0;
+                
+                dimension.questions.forEach(question => {
+                    const answer = questionnaireData[dimension.id][question.id];
+                    // Only calculate score for Likert questions (where type is undefined)
+                    if (question.type === undefined && answer && answer.maturity) { 
+                        dimensionScore += answer.maturity;
+                        likertQuestionCount++;
+                        totalLikertQuestions++;
+                    }
+                });
+                
+                const avgScore = likertQuestionCount > 0 ? dimensionScore / likertQuestionCount : 0;
+                
+                // Store score for Likert-based dimensions only
+                // Use the name directly from assessmentStructure.dimensions for display in chart
+                assessmentData.scores[dimension.id] = {
+                    name: dimension.name.includes(': ') ? dimension.name.split(': ')[1] : dimension.name, // Extract only the name
+                    score: avgScore,
+                    percentage: (avgScore / 5) * 100
+                };
+                
+                if (likertQuestionCount > 0) { // Only sum for overall if it was a Likert dimension
+                   totalScore += dimensionScore; 
+                }
+
+                if (avgScore >= 4.0) {
+                    assessmentData.strengths.push(dimension.name.includes(': ') ? dimension.name.split(': ')[1] : dimension.name);
+                } else if (avgScore > 0 && avgScore < 3.0) { // Only count as opportunity if answered and not zero score
+                    assessmentData.opportunities.push(dimension.name.includes(': ') ? dimension.name.split(': ')[1] : dimension.name);
+                }
+            });
+            
+            assessmentData.overallScore = totalLikertQuestions > 0 ? totalScore / totalLikertQuestions : 0;
+            
+            for (const level in assessmentStructure.maturity_levels) {
+                const levelData = assessmentStructure.maturity_levels[level];
+                const [min, max] = levelData.range;
+                if (assessmentData.overallScore >= min && assessmentData.overallScore <= max) {
+                     assessmentData.maturityLevel = {
+                        level: level,
+                        name: levelData.name,
+                        description: levelData.description
+                    };
+                    break;
+                }
+            }
+            
+             // Fallback for exact 5.0 score if range is exclusive on upper bound
+             if (!assessmentData.maturityLevel && assessmentData.overallScore === 5) {
+                assessmentData.maturityLevel = assessmentStructure.maturity_levels['5'];
+            }
+        }
+
+
+        function displayResults() {
+            document.getElementById('overall-score').textContent = assessmentData.overallScore.toFixed(1);
+            
+            const maturityBadge = document.getElementById('maturity-badge');
+            const maturityDescription = document.getElementById('maturity-description');
+            if (assessmentData.maturityLevel) {
+                maturityBadge.textContent = assessmentData.maturityLevel.name;
+                maturityBadge.className = `level-badge ${assessmentData.maturityLevel.name.toLowerCase().replace(' ','-')}`;
+                maturityDescription.textContent = assessmentData.maturityLevel.description;
+            }
+            
+            const strengthsList = document.getElementById('strengths-list');
+            strengthsList.innerHTML = assessmentData.strengths.length ?
+                assessmentData.strengths.map(s => `<li>${s}</li>`).join('') :
+                '<li>Nenhum ponto forte (score ≥ 4.0) identificado.</li>';
+
+            const opportunitiesList = document.getElementById('opportunities-list');
+            opportunitiesList.innerHTML = assessmentData.opportunities.length ?
+                assessmentData.opportunities.map(o => `<li>${o}</li>`).join('') :
+                '<li>Nenhuma oportunidade crítica (score < 3.0) identificada.</li>';
+
+            displayAdditionalResults(); // Combined OFI and Classification results
+            createDimensionsChart();
+        }
+
+
+        function displayAdditionalResults() {
+            const container = document.getElementById('additional-results-container');
+            container.innerHTML = '';
+            
+            const grid = document.createElement('div');
+            grid.className = 'classification-results-grid';
+
+            // Display Operational and Financial Indicators
+            assessmentStructure.operational_financial_questions.forEach(q => {
+                const answer = assessmentData.operationalFinancialResponses[q.id];
+                const resultCard = document.createElement('div');
+                resultCard.className = 'classification-result-card';
+                resultCard.innerHTML = `
+                    <p class="question">${q.text}</p>
+                    <p class="answer">${answer || 'Não respondido'}</p>
+                `;
+                grid.appendChild(resultCard);
+            });
+
+            // Display final Classification Questions
+            assessmentStructure.classification_questions.forEach(q => {
+                const answer = assessmentData.classificationResponses[q.id]; 
+                const resultCard = document.createElement('div');
+                resultCard.className = 'classification-result-card';
+                resultCard.innerHTML = `
+                    <p class="question">${q.text}</p>
+                    <p class="answer">${q.type === 'checkbox' && Array.isArray(answer) ? answer.join(', ') : (answer || 'Não respondido')}</p>
+                `;
+                grid.appendChild(resultCard);
+            });
+            container.appendChild(grid);
+        }
+
+
+        function createDimensionsChart() {
+            const ctx = document.getElementById('dimensions-chart').getContext('2d');
+            
+            if (window.myDimensionsChart) {
+                window.myDimensionsChart.destroy();
+            }
+
+            // Filter for Likert-based dimensions for the radar chart
+            const likertDimensions = assessmentStructure.dimensions.filter(dim => 
+                dim.questions.some(q => q.type === undefined) // Check if any question is Likert type (type is undefined)
+            );
+
+            const labels = likertDimensions.map(d => assessmentData.scores[d.id].name);
+            const data = likertDimensions.map(d => assessmentData.scores[d.id].score);
+            
+            window.myDimensionsChart = new Chart(ctx, {
+                type: 'radar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Score de Maturidade',
+                        data: data,
+                        backgroundColor: 'rgba(235, 104, 86, 0.2)',
+                        borderColor: '#EB6856',
+                        pointBackgroundColor: '#EB6856',
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: '#EB6856',
+                        borderWidth: 2,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    elements: { line: { borderWidth: 3 } },
+                    scales: {
+                        r: {
+                            angleLines: { display: true, color: 'rgba(45, 35, 87, 0.1)' },
+                            suggestedMin: 0,
+                            suggestedMax: 5,
+                            grid: { color: 'rgba(45, 35, 87, 0.1)' },
+                            pointLabels: { font: { size: 12, weight: '500' }, color: '#2D2357' },
+                            ticks: { beginAtZero: true, max: 5, min: 0, stepSize: 1, backdropColor: 'transparent', color: '#5b647c' }
+                        }
+                    },
+                    plugins: {
+                        legend: { position: 'top' },
+                        title: { display: true, text: 'Análise por Dimensão da Maturidade', font: { size: 18 }, color: '#2D2357' }
+                    }
+                }
+            });
+        }
+
+        function restartAssessment() {
+            currentDimensionIndex = 0; 
+            assessmentData = {};
+            institutionalData = {};
+            initializeApp();
+            showNotification('Questionário reiniciado com sucesso!', 'success');
+            showPage('landing-page');
+        }
+
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.textContent = message;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.classList.add('show');
+            }, 100);
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+                setTimeout(() => {
+                    if (document.body.contains(notification)) {
+                        document.body.removeChild(notification);
+                    }
+                }, 300);
+            }, 4000);
+        }
+    </script>
+</body>
+</html>
