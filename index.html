@@ -843,44 +843,6 @@
         </div>
     </section>
     
-    <!-- Indicadores Operacionais e Financeiros (New Page) -->
-    <section id="operational-financial-indicators-page" class="page">
-        <div class="container">
-            <div class="questionnaire-header">
-                 <div class="progress-section">
-                    <div class="progress-info">
-                        <span class="progress-text">Progresso: <span id="current-step-display-ofi">0</span> de <span id="total-steps-display-ofi"></span></span>
-                        <span class="progress-percentage" id="overall-progress-percentage-ofi">0%</span>
-                    </div>
-                    <div class="progress-bar-container">
-                        <div class="progress-bar" id="overall-progress-bar-ofi" style="width: 0%;"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="questionnaire-content">
-                <div class="dimension-info">
-                    <h2>Indicadores Operacionais e Financeiros</h2>
-                    <p>Nesta seção você irá responder questões relacionadas à operação e desempenho financeiro da sua instituição. Caso você não possa responder a questão, deixe-a em branco.</p>
-                </div>
-                <form id="operational-financial-form" class="assessment-form">
-                    <div class="form-grid" id="ofi-questions-container">
-                        <!-- OFI questions will be dynamically populated -->
-                    </div>
-                    <div class="form-actions">
-                        <button type="button" class="btn btn--outline" onclick="goToLastDimension()">
-                            <i class="fas fa-arrow-left"></i>
-                            Anterior
-                        </button>
-                        <button type="button" class="btn btn--primary" onclick="nextOFISection()">
-                            Continuar para Autoavaliação
-                            <i class="fas fa-arrow-right"></i>
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </section>
-
     <!-- Perguntas de Classificação (Autoavaliação e Contato) -->
     <section id="classification-questions-page" class="page">
         <div class="container">
@@ -905,7 +867,7 @@
                         <!-- Classification questions will be dynamically populated -->
                     </div>
                     <div class="form-actions">
-                        <button type="button" class="btn btn--outline" onclick="goToOFISection()">
+                        <button type="button" class="btn btn--outline" onclick="goToLastDimension()">
                             <i class="fas fa-arrow-left"></i>
                             Anterior
                         </button>
@@ -964,7 +926,7 @@
             <div class="classification-results-section">
                 <h3>Respostas Adicionais</h3>
                 <div id="additional-results-container">
-                     <!-- OFI and Classification results will be displayed here -->
+                     <!-- Classification results will be displayed here -->
                 </div>
             </div>
 
@@ -986,7 +948,6 @@
         let assessmentData = {};
         let institutionalData = {};
         let questionnaireData = {}; // Para respostas Likert e novas dimensões (D12, D13)
-        let operationalFinancialData = {}; // Para Indicadores Operacionais e Financeiros
         let classificationData = {}; // Para autoavaliação e dados de contato finais
         let totalFormSteps = 0; // Nova variável para o total de passos no questionário
 
@@ -1135,27 +1096,6 @@
                     ]
                 }
             ],
-            "operational_financial_questions": [ 
-                { "id": "ofi1", "text": "Qual a taxa média de ocupação de leito nos últimos três meses? (Preencha apenas o número da porcentagem - ex: 80 para 80%)", "type": "number", "min": 0, "max": 100 },
-                { "id": "ofi2", "text": "Qual a duração média de permanência no primeiro trimestre de 2025? (Preencha um número de dias - ex: 4)", "type": "number", "min": 0 },
-                { "id": "ofi3", "text": "Qual o número médio de atendimento na EMERGÊNCIA por mês no primeiro trimestre de 2025? (Preencha um número de pacientes - ex: 100)", "type": "number", "min": 0 },
-                { "id": "ofi4", "text": "Qual o número médio de atendimento no AMBULATÓRIO por mês no primeiro trimestre de 2025? (Preencha um número de pacientes - ex: 100)", "type": "number", "min": 0 },
-                { "id": "ofi5", "text": "Qual o número médio de INTERNAÇÕES por mês no primeiro trimestre de 2025? (Preencha um número de pacientes - ex: 100)", "type": "number", "min": 0 },
-                { "id": "ofi6", "text": "Qual o número médio de CIRURGIAS por mês no primeiro trimestre de 2025? (Preencha um número de pacientes - ex: 100)", "type": "number", "min": 0 },
-                { "id": "ofi7", "text": "Qual o tempo médio (lead time) da EMERGÊNCIA - chegada do paciente até 1ª avaliação médica, no primeiro trimestre do ano? (Preencha um número em minutos - ex: 30)", "type": "number", "min": 0 },
-                { "id": "ofi8", "text": "Qual o tempo médio (lead time) da EMERGÊNCIA - decisão médica até saída/transferência do paciente, no primeiro trimestre do ano? (Preencha um número em minutos - ex: 30)", "type": "number", "min": 0 },
-                { "id": "ofi9", "text": "Qual o tempo médio (lead time) da AUTORIZAÇÃO CIRÚRGICA/PROCEDIMENTO no primeiro trimestre do ano? (Preencha um número em dias - ex: 10)", "type": "number", "min": 0 },
-                { "id": "ofi10", "text": "Qual a taxa média de REALIZAÇÃO DE AVISO CIRÚRGICO no primeiro trimestre do ano? (Preencha apenas o número da porcentagem - ex: 80 para 80%)", "type": "number", "min": 0, "max": 100 },
-                { "id": "ofi11", "text": "Qual o tempo médio (lead time) do GIRO DE SALA CIRÚRGICA no primeiro trimestre do ano? (Preencha um número em minutos - ex: 10)", "type": "number", "min": 0 },
-                { "id": "ofi12", "text": "Qual o tempo médio (lead time) da LIBERAÇÃO DE LEITO DE INTERNAÇÃO no primeiro trimestre do ano? (Preencha um número em minutos - ex: 10)", "type": "number", "min": 0 },
-                { "id": "ofi13", "text": "Qual a taxa de realização de avisos cirúrgicos (agendado vs. realizado), no primeiro trimestre do ano? (Preencha apenas o número da porcentagem - ex: 90 para 90%)", "type": "number", "min": 0, "max": 100 },
-                { "id": "ofi14", "text": "Qual a taxa de aderência para alta hospitalar (alta realizada em até +/-1h do previsto), no primeiro trimestre do ano? (Preencha apenas o número da porcentagem - ex: 85 para 85%)", "type": "number", "min": 0, "max": 100 },
-                { "id": "ofi15", "text": "Qual a margem EBITDA (em %), no primeiro trimestre do ano? (Preencha apenas o número da porcentagem - ex: 15 para 15%)", "type": "number", "min": -100, "max": 100 }, /* EBITDA can be negative */
-                { "id": "ofi16", "text": "Qual a taxa de glosa contábil (final), no primeiro trimestre do ano? (Preencha apenas o número da porcentagem - ex: 1.5 para 1.5%)", "type": "number", "step": 0.1, "min": 0, "max": 100 },
-                { "id": "ofi17", "text": "Qual a taxa de glosa gerencial (inicial), no primeiro trimestre do ano? (Preença apenas o número da porcentagem - ex: 15 para 15%)", "type": "number", "step": 0.1, "min": 0, "max": 100 },
-                { "id": "ofi18", "text": "Qual o prazo médio de recebimento (PMR, em dias), no primeiro trimestre do ano? (Preencha o número de dias - ex: 45)", "type": "number", "min": 0 },
-                { "id": "ofi19", "text": "Qual a taxa de contas sem pendências (limpa) na alta administrativa, no primeiro trimestre do ano? (Preencha apenas o número da porcentagem - ex: 90 para 90%)", "type": "number", "min": 0, "max": 100 }
-            ],
             "classification_questions": [
                 // Movidos para cá do formulário institucional
                 { "id": "cq_grossRevenue", "text": "Faturamento Operacional Bruto Anual (ROB) (R$)*", "type": "select", "options": ["< 50 milhões", "Entre 50 milhões e 200 milhões", "Entre 200 milhões e 500 milhões", "> 500 milhões"], "required": true },
@@ -1183,7 +1123,6 @@
                 { "id": "cq6", "text": "A instituição contratou consultoria externa nos últimos 12 meses?", "type": "radio", "options": ["Sim", "Não"], "required": true }, 
                 { "id": "cq7", "text": "A instituição possui uma área corporativa e dedicada para Melhoria Contínua e Eficiência Operacional?", "type": "radio", "options": ["Sim", "Não"], "required": true }, 
                 { "id": "cq8", "text": "A instituição deseja participar da construção de um estudo de caso em profundidade?", "type": "radio", "options": ["Sim", "Não"], "required": true }, 
-                // cq9 (Confirmo interesse...) foi removido conforme sua solicitação
                 { "id": "cq9", "text": "Confirme o seu e-mail corporativo *", "type": "email", "required": true }, 
                 { "id": "cq10", "text": "Informe um número de telefone para contato * (Apenas números)", "type": "tel", "required": true, "pattern": "[0-9]{10,11}" }, 
                 { "id": "cq11", "text": "Confirme o nome da instituição *", "type": "text", "required": true } 
@@ -1202,8 +1141,7 @@
             // Calcula o total de passos do formulário uma vez que a estrutura é carregada
             totalFormSteps = 1 + // Formulário Institucional
                              assessmentStructure.dimensions.length + // Todas as Dimensões
-                             1 + // Indicadores Operacionais e Financeiros
-                             assessmentStructure.classification_questions.length; // Perguntas de Classificação
+                             1; // Perguntas de Classificação
 
             initializeApp();
             updateOverallProgressBar(); // Atualiza a barra de progresso inicial
@@ -1223,11 +1161,6 @@
                         questionnaireData[dimension.id][question.id] = { maturity: null };
                     }
                 });
-            });
-
-            operationalFinancialData = {};
-            assessmentStructure.operational_financial_questions.forEach(q => {
-                operationalFinancialData[q.id] = null;
             });
 
             classificationData = {};
@@ -1424,33 +1357,22 @@
             const currentSelections = questionnaireData[dimensionId][questionId];
             const formattedOption = otherText ? `${originalOption}: ${otherText}` : originalOption;
             const originalIndex = currentSelections.indexOf(originalOption);
-            const formattedIndex = currentSelections.indexOf(`${originalOption}: ${otherText}`);
+            const formattedIndex = currentSelections.findIndex(item => item.startsWith(`${originalOption}:`));
 
-            if (isChecked) {
-                // Remove original 'Outra' if it exists without text
-                if (originalIndex > -1) {
-                    currentSelections.splice(originalIndex, 1);
-                }
-                // Add the new formatted option if not already present
-                if (!currentSelections.includes(formattedOption)) {
-                    currentSelections.push(formattedOption);
-                }
-            } else {
-                // Remove both original and formatted 'Outra'
-                if (originalIndex > -1) {
-                    currentSelections.splice(originalIndex, 1);
-                }
-                if (formattedIndex > -1) {
-                    currentSelections.splice(formattedIndex, 1);
-                }
+            // Remove all previous versions of 'Outra'
+            if (originalIndex > -1) {
+                currentSelections.splice(originalIndex, 1);
             }
-            // Ensure other options are still correctly managed by saveDimensionCheckboxAnswer
-            // This is complex because we are mixing direct manipulation with the original function.
-            // A simpler approach for 'other' is to track it separately.
-            // For now, the above should work by manipulating the array.
+             if (formattedIndex > -1) {
+                currentSelections.splice(formattedIndex, 1);
+            }
+            
+            if (isChecked) {
+                // Add the new formatted option
+                currentSelections.push(formattedOption);
+            }
         }
-
-        // Original saveDimensionCheckboxAnswer modified to be called for non-'Outra' options or internal logic
+        
         function saveDimensionCheckboxAnswer(dimensionId, questionId, optionValue, isChecked) {
             if (!questionnaireData[dimensionId]) {
                 questionnaireData[dimensionId] = {};
@@ -1468,11 +1390,6 @@
                 const index = currentSelections.indexOf(optionValue);
                 if (index > -1) {
                     currentSelections.splice(index, 1);
-                }
-                // Also remove any "Outra: [text]" associated with this option if it was previously set
-                const otherTextIndex = currentSelections.findIndex(item => item.startsWith(`${optionValue}:`));
-                if (otherTextIndex > -1) {
-                    currentSelections.splice(otherTextIndex, 1);
                 }
             }
         }
@@ -1494,21 +1411,18 @@
                 } else if (question.type === 'checkbox') {
                     if (Array.isArray(answer)) {
                         answer.forEach(val => {
-                            const checkbox = document.querySelector(`input[name="${dimId}_${qId}"][value="${val}"]`);
-                            if (checkbox) checkbox.checked = true;
-                            
-                            // Restore other text if applicable
-                            const isOther = val.toLowerCase().startsWith('outra:');
-                            if (isOther) {
-                                const originalOption = question.options.find(opt => opt.toLowerCase() === 'outra' || opt.toLowerCase() === 'outros');
-                                if (originalOption) {
-                                    const otherText = val.substring(`${originalOption}: `.length);
-                                    const otherTextInputId = `${dimId}_${qId}_${question.options.indexOf(originalOption)}_other_text`;
-                                    const otherTextInput = document.getElementById(otherTextInputId);
-                                    if (otherTextInput) {
-                                        otherTextInput.parentNode.style.display = 'block';
+                            const originalOptionValue = val.split(':')[0];
+                            const checkbox = document.querySelector(`input[name="${dimId}_${qId}"][value="${originalOptionValue}"]`);
+                            if (checkbox) {
+                                checkbox.checked = true;
+                                if (val.toLowerCase().startsWith('outra:') || val.toLowerCase().startsWith('outros:')) {
+                                     const otherText = val.substring(val.indexOf(':') + 2);
+                                     const otherTextInputId = checkbox.id + '_other_text';
+                                     const otherTextInput = document.getElementById(otherTextInputId);
+                                     if(otherTextInput) {
                                         otherTextInput.value = otherText;
-                                    }
+                                        otherTextInput.parentNode.style.display = 'block';
+                                     }
                                 }
                             }
                         });
@@ -1529,21 +1443,18 @@
             for (const q of currentDimension.questions) {
                 const answer = questionnaireData[dimId] ? questionnaireData[dimId][q.id] : null;
 
-                // For Likert questions (where question.type is undefined)
                 if (q.type === undefined) { 
                     if (!answer || answer.maturity === null) {
                         showNotification('Por favor, responda todas as perguntas desta dimensão antes de prosseguir.', 'error');
                         return false;
                     }
                 } 
-                // For radio button questions
                 else if (q.type === 'radio') {
                     if (answer === null || answer === '') {
                         showNotification('Por favor, selecione uma opção para todas as perguntas desta dimensão.', 'error');
                         return false;
                     }
                 } 
-                // For checkbox questions
                 else if (q.type === 'checkbox') {
                     if (!Array.isArray(answer) || answer.length === 0) {
                         showNotification('Por favor, marque pelo menos uma opção para a pergunta de checklist.', 'error');
@@ -1553,79 +1464,56 @@
                         showNotification(`Por favor, selecione no máximo ${q.maxSelection} opções para a pergunta de checklist.`, 'error');
                         return false;
                     }
-                    // Validate "Outra" text field if checked
                     const otherOptionValue = q.options.find(opt => opt.toLowerCase() === 'outra' || opt.toLowerCase() === 'outros');
-                    if (otherOptionValue && answer.includes(`${otherOptionValue}: `)) { // Check if "Outra: " is in the saved answer
-                        const otherTextFromSaved = answer.find(item => item.startsWith(`${otherOptionValue}: `));
-                        const actualOtherText = otherTextFromSaved ? otherTextFromSaved.substring(`${otherOptionValue}: `.length).trim() : '';
-                        if (actualOtherText === '') {
-                            showNotification('Por favor, especifique o texto para a opção "Outra/Outros".', 'error');
-                            return false;
-                        }
+                    if (otherOptionValue) {
+                         const otherAnswer = answer.find(item => item.startsWith(`${otherOptionValue}:`));
+                         if(otherAnswer) {
+                            const otherText = otherAnswer.substring(otherAnswer.indexOf(':') + 2).trim();
+                            if(otherText === ''){
+                                showNotification('Por favor, especifique o texto para a opção "Outra/Outros".', 'error');
+                                return false;
+                            }
+                         } else if(answer.includes(otherOptionValue)) {
+                            // This case handles if "Outra" is selected but no text is entered yet.
+                            const otherTextInputId = `${dimId}_${q.id}_${q.options.indexOf(otherOptionValue)}_other_text`;
+                            const otherTextInput = document.getElementById(otherTextInputId);
+                            if (otherTextInput && otherTextInput.value.trim() === '') {
+                                showNotification('Por favor, especifique o texto para a opção "Outra/Outros".', 'error');
+                                return false;
+                            }
+                         }
                     }
                 }
             }
             return true;
         }
 
-        // Nova função para atualizar a barra de progresso geral
         function updateOverallProgressBar() {
             let currentStepNumber = 0;
             const totalDimensions = assessmentStructure.dimensions.length;
-            const totalOFIQuestions = assessmentStructure.operational_financial_questions.length;
-            const totalClassificationQuestions = assessmentStructure.classification_questions.length;
-
-            // Recalculate totalFormSteps if it hasn't been done or needs to be dynamic
-            if (totalFormSteps === 0) { // Only calculate once or if explicitly reset
-                 totalFormSteps = 1 + // Formulário Institucional (1 passo)
-                                 totalDimensions + // Cada Dimensão Likert/Radio/Checkbox (N passos)
-                                 1 + // Indicadores Operacionais e Financeiros (1 passo)
-                                 1; // Classificação e Contato Final (1 passo, embora possa ter muitas sub-perguntas, é uma tela)
+            
+            if (totalFormSteps === 0) {
+                 totalFormSteps = 1 + // Formulário Institucional
+                                 totalDimensions + // Dimensões
+                                 1; // Classificação
             }
             
-            // Determine o número do passo atual
             if (currentPage === 'institutional-form') {
                 currentStepNumber = 1;
             } else if (currentPage === 'assessment-questionnaire') {
                 currentStepNumber = 1 + (currentDimensionIndex + 1);
-            } else if (currentPage === 'operational-financial-indicators-page') {
-                currentStepNumber = 1 + totalDimensions + 1;
             } else if (currentPage === 'classification-questions-page') {
-                currentStepNumber = 1 + totalDimensions + 1 + 1;
+                currentStepNumber = 1 + totalDimensions + 1;
             } else {
-                // Para landing page ou resultados, não incrementa o contador de passos ativo do formulário
                 return; 
             }
 
             const percentage = (currentStepNumber / totalFormSteps) * 100;
-
-            // Atualiza todos os elementos da barra de progresso em todas as seções
-            document.getElementById('current-step-display').textContent = currentStepNumber;
-            document.getElementById('total-steps-display').textContent = totalFormSteps;
-            document.getElementById('overall-progress-percentage').textContent = `${Math.round(percentage)}%`;
-            document.getElementById('overall-progress-bar').style.width = `${percentage}%`;
-
-            // Atualiza os outros progress bars, se existirem (assumindo IDs semelhantes)
-            // (Estes são elementos do HTML, não variáveis JS. Eles são atualizados para visualmente espelhar o progresso geral)
-            const progressDisplayOFI = document.getElementById('current-step-display-ofi');
-            const totalDisplayOFI = document.getElementById('total-steps-display-ofi');
-            const percentOFI = document.getElementById('overall-progress-percentage-ofi');
-            const barOFI = document.getElementById('overall-progress-bar-ofi');
             
-            if (progressDisplayOFI) progressDisplayOFI.textContent = currentStepNumber;
-            if (totalDisplayOFI) totalDisplayOFI.textContent = totalFormSteps;
-            if (percentOFI) percentOFI.textContent = `${Math.round(percentage)}%`;
-            if (barOFI) barOFI.style.width = `${percentage}%`;
-
-            const progressDisplayClass = document.getElementById('current-step-display-class');
-            const totalDisplayClass = document.getElementById('total-steps-display-class');
-            const percentClass = document.getElementById('overall-progress-percentage-class');
-            const barClass = document.getElementById('overall-progress-bar-class');
-
-            if (progressDisplayClass) progressDisplayClass.textContent = currentStepNumber;
-            if (totalDisplayClass) totalDisplayClass.textContent = totalFormSteps;
-            if (percentClass) percentClass.textContent = `${Math.round(percentage)}%`;
-            if (barClass) barClass.style.width = `${percentage}%`;
+            document.querySelectorAll('#current-step-display, #current-step-display-class').forEach(el => el.textContent = currentStepNumber);
+            document.querySelectorAll('#total-steps-display, #total-steps-display-class').forEach(el => el.textContent = totalFormSteps);
+            document.querySelectorAll('#overall-progress-percentage, #overall-progress-percentage-class').forEach(el => el.textContent = `${Math.round(percentage)}%`);
+            document.querySelectorAll('#overall-progress-bar, #overall-progress-bar-class').forEach(el => el.style.width = `${percentage}%`);
         }
 
 
@@ -1636,19 +1524,19 @@
 
             if (currentDimensionIndex === 0) {
                 prevBtn.onclick = goToInstitutionalForm;
-                prevBtn.textContent = "Voltar para Dados Institucionais";
+                prevBtn.innerHTML = '<i class="fas fa-arrow-left"></i> Voltar para Dados Institucionais';
             } else {
                 prevBtn.onclick = previousDimension;
-                prevBtn.textContent = "Anterior";
+                prevBtn.innerHTML = '<i class="fas fa-arrow-left"></i> Anterior';
             }
 
             const isLastDimensionPage = currentDimensionIndex === totalDimensions - 1;
             
             if (isLastDimensionPage) {
-                nextBtn.textContent = 'Ir para Indicadores Operacionais';
-                nextBtn.onclick = nextDimensionToOFI;
+                nextBtn.innerHTML = 'Ir para Autoavaliação <i class="fas fa-arrow-right"></i>';
+                nextBtn.onclick = goToClassificationPage;
             } else {
-                nextBtn.textContent = 'Próximo';
+                nextBtn.innerHTML = 'Próximo <i class="fas fa-arrow-right"></i>';
                 nextBtn.onclick = nextDimension;
             }
         }
@@ -1659,14 +1547,11 @@
 
         function nextDimension() {
             if (!validateCurrentDimensionQuestions()) {
-                return; // showNotification já é chamado dentro de validateCurrentDimensionQuestions
+                return;
             }
-            const totalDimensions = assessmentStructure.dimensions.length;
-            if (currentDimensionIndex < totalDimensions - 1) {
+            if (currentDimensionIndex < assessmentStructure.dimensions.length - 1) {
                 currentDimensionIndex++;
                 loadQuestionnaire();
-            } else {
-                nextDimensionToOFI();
             }
         }
 
@@ -1679,81 +1564,21 @@
             }
         }
         
-        function nextDimensionToOFI() {
+        function goToClassificationPage() {
              if (!validateCurrentDimensionQuestions()) {
-                return; // showNotification já é chamado
-            }
-            loadOperationalFinancialIndicators();
-            showPage('operational-financial-indicators-page');
-        }
-
-        function goToLastDimension() {
-            currentDimensionIndex = assessmentStructure.dimensions.length - 1;
-            loadQuestionnaire();
-            showPage('assessment-questionnaire');
-        }
-
-        function loadOperationalFinancialIndicators() {
-            const container = document.getElementById('ofi-questions-container');
-            container.innerHTML = '';
-
-            assessmentStructure.operational_financial_questions.forEach(q => {
-                const formGroup = document.createElement('div');
-                formGroup.className = 'form-group';
-                if (q.type === 'textarea' || q.type === 'text') {
-                    formGroup.classList.add('form-group--full');
-                }
-
-                let inputHtml = '';
-                if (q.type === 'number') {
-                    inputHtml = `<input type="number" id="${q.id}" name="${q.id}" class="form-control" onchange="saveOFIAnswer('${q.id}', this.value)" ${q.min !== undefined ? `min="${q.min}"` : ''} ${q.max !== undefined ? `max="${q.max}"` : ''} ${q.step ? `step="${q.step}"` : ''}>`;
-                } else if (q.type === 'text') {
-                    inputHtml = `<input type="text" id="${q.id}" name="${q.id}" class="form-control" onchange="saveOFIAnswer('${q.id}', this.value)">`;
-                } else if (q.type === 'textarea') {
-                    inputHtml = `<textarea id="${q.id}" name="${q.id}" class="form-control" rows="3" onchange="saveOFIAnswer('${q.id}', this.value)"></textarea>`;
-                }
-
-                formGroup.innerHTML = `
-                    <label class="form-label" for="${q.id}">${q.text}</label>
-                    ${inputHtml}
-                `;
-                container.appendChild(formGroup);
-            });
-            restoreOFIAnswers();
-            updateOverallProgressBar(); // Atualiza a barra de progresso
-        }
-
-        function saveOFIAnswer(questionId, value) {
-            operationalFinancialData[questionId] = value;
-        }
-
-        function restoreOFIAnswers() {
-            for (const qId in operationalFinancialData) {
-                const answer = operationalFinancialData[qId];
-                if (answer !== null) {
-                    const inputElement = document.getElementById(qId);
-                    if (inputElement) {
-                        inputElement.value = answer;
-                    }
-                }
-            }
-        }
-
-        function validateOFIQuestions() {
-            return true; // OFI questions are not strictly required, allow empty.
-        }
-
-        function nextOFISection() {
-            if (!validateOFIQuestions()) {
-                return; 
+                return;
             }
             loadClassificationQuestions();
             showPage('classification-questions-page');
         }
 
-        function goToOFISection() {
-            showPage('operational-financial-indicators-page');
+        function goToLastDimension() {
+            // This function is now the "back" button for the classification page
+            currentDimensionIndex = assessmentStructure.dimensions.length - 1;
+            loadQuestionnaire();
+            showPage('assessment-questionnaire');
         }
+
 
         function loadClassificationQuestions() {
             const container = document.getElementById('classification-questions-container');
@@ -1763,7 +1588,7 @@
                 const formGroup = document.createElement('div');
                 formGroup.className = 'form-group';
                 if (q.type === 'textarea' || q.type === 'text' || q.type === 'email' || q.type === 'tel' || q.type === 'select' || q.type === 'checkbox') {
-                    formGroup.classList.add('form-group--full'); // Checkboxes also take full width for the "other" text input
+                    formGroup.classList.add('form-group--full');
                 }
                 
                 let inputHtml = '';
@@ -1850,15 +1675,20 @@
             const formattedOption = otherText ? `${originalOption}: ${otherText}` : originalOption;
             
             // Remove previous versions of this 'other' option
-            const previousOtherIndex = currentSelections.findIndex(item => item.startsWith(`${originalOption}:`) || item === originalOption);
-            if (previousOtherIndex > -1) {
-                currentSelections.splice(previousOtherIndex, 1);
+            const previousOtherIndexes = [];
+            currentSelections.forEach((item, index) => {
+                if (item === originalOption || item.startsWith(`${originalOption}:`)) {
+                    previousOtherIndexes.push(index);
+                }
+            });
+            // Remove from highest index to lowest to avoid shifting issues
+            for (let i = previousOtherIndexes.length - 1; i >= 0; i--) {
+                currentSelections.splice(previousOtherIndexes[i], 1);
             }
 
             if (isChecked) {
                 currentSelections.push(formattedOption);
             }
-            // If unchecked, it's already removed by the logic above.
         }
 
         function saveClassificationCheckboxOnlyAnswer(questionId, optionValue, isChecked) {
@@ -1892,20 +1722,18 @@
                 } else if (q.type === 'checkbox') {
                     if (Array.isArray(answer)) {
                         answer.forEach(val => {
-                            const checkbox = document.querySelector(`input[name="${qId}"][value="${val}"]`);
-                            if (checkbox) checkbox.checked = true;
-                            
-                            const isOther = val.toLowerCase().startsWith('outra:') || val.toLowerCase().startsWith('outros:');
-                            if (isOther && q.hasOtherText) {
-                                const originalOption = q.options.find(opt => opt.toLowerCase() === 'outra' || opt.toLowerCase() === 'outros');
-                                if (originalOption) {
-                                    const otherText = val.substring(`${originalOption}: `.length);
-                                    const otherTextInputId = `${qId}_${q.options.indexOf(originalOption)}_other_text`;
-                                    const otherTextInput = document.getElementById(otherTextInputId);
-                                    if (otherTextInput) {
-                                        otherTextInput.parentNode.style.display = 'block';
+                            const originalOptionValue = val.split(':')[0];
+                            const checkbox = document.querySelector(`input[name="${qId}"][value="${originalOptionValue}"]`);
+                            if (checkbox) {
+                                checkbox.checked = true;
+                                if (val.toLowerCase().startsWith('outra:') || val.toLowerCase().startsWith('outros:')) {
+                                     const otherText = val.substring(val.indexOf(':') + 2);
+                                     const otherTextInputId = checkbox.id + '_other_text';
+                                     const otherTextInput = document.getElementById(otherTextInputId);
+                                     if(otherTextInput) {
                                         otherTextInput.value = otherText;
-                                    }
+                                        otherTextInput.parentNode.style.display = 'block';
+                                     }
                                 }
                             }
                         });
@@ -1933,15 +1761,25 @@
                             showNotification(`Por favor, selecione no máximo ${q.maxSelection} opções para o campo "${q.text}".`, 'error');
                             return false;
                         }
-                        // Validate "Outra" text field if checked
                         const otherOptionValue = q.options.find(opt => opt.toLowerCase() === 'outra' || opt.toLowerCase() === 'outros');
-                        if (otherOptionValue && q.hasOtherText && Array.isArray(answer) && answer.some(item => item.startsWith(`${otherOptionValue}:`))) {
-                           const otherTextFromSaved = answer.find(item => item.startsWith(`${otherOptionValue}:`));
-                           const actualOtherText = otherTextFromSaved ? otherTextFromSaved.substring(`${otherOptionValue}: `.length).trim() : '';
-                           if (actualOtherText === '') {
-                               showNotification('Por favor, especifique o texto para a opção "Outra/Outros".', 'error');
-                               return false;
-                           }
+                        if (otherOptionValue && q.hasOtherText && Array.isArray(answer)) {
+                            const otherAnswer = answer.find(item => item.startsWith(`${otherOptionValue}:`));
+                            if(otherAnswer) {
+                               const actualOtherText = otherAnswer.substring(otherAnswer.indexOf(':') + 2).trim();
+                               if (actualOtherText === '') {
+                                   showNotification('Por favor, especifique o texto para a opção "Outra/Outros".', 'error');
+                                   return false;
+                               }
+                            } else if (answer.includes(otherOptionValue)) {
+                                // This case means "Outra" is checked, but the text isn't saved yet in the array.
+                                // We check the input field directly.
+                                const otherCheckbox = document.querySelector(`input[value="${otherOptionValue}"][name="${q.id}"]`);
+                                const otherTextInput = document.getElementById(otherCheckbox.id + '_other_text');
+                                if (otherTextInput && otherTextInput.value.trim() === '') {
+                                    showNotification('Por favor, especifique o texto para a opção "Outra/Outros".', 'error');
+                                    return false;
+                                }
+                            }
                         }
 
                     } else if (answer === null || (typeof answer === 'string' && answer.trim() === '')) {
@@ -1950,7 +1788,6 @@
                     }
                 }
                 
-                // Specific pattern validation for tel
                 if (q.type === 'tel' && q.pattern) {
                     const value = classificationData[q.id];
                     if (value && !new RegExp(q.pattern).test(value)) {
@@ -1963,12 +1800,10 @@
         }
         
         function sendDataToSheet(data) {
-            // URL do script do Google Apps Script para receber os dados
-            const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbztO_lqTGHt2q8TfeaeuYU-Q3gHzIHbtLDqOJYoesqtW5LE3sS5RBkzgtuJd6dXjhsO/exec'; // Updated API URL
+            const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbztO_lqTGHt2q8TfeaeuYU-Q3gHzIHbtLDqOJYoesqtW5LE3sS5RBkzgtuJd6dXjhsO/exec';
             
             const rowData = {
                 timestamp: data.timestamp,
-                // Dados Institucionais (reordenados e atualizados)
                 institutionName: data.institutional.name,
                 respondentFullName: data.institutional.respondentFullName,
                 respondentEmail: data.institutional.respondentEmail,
@@ -1979,27 +1814,21 @@
                 institutionType: data.institutional.type,
                 legalNature: data.institutional.legalNature,
                 bedsCount: data.institutional.beds,
-                
-                // Score Geral e Nível de Maturidade
                 overallScore: data.overallScore.toFixed(1),
                 maturityLevelName: data.maturityLevel.name,
                 maturityLevelDescription: data.maturityLevel.description,
-                
-                // Pontos Fortes e Oportunidades
                 strengths: data.strengths.join('; '),
                 opportunities: data.opportunities.join('; '),
             };
 
-            // Adiciona scores para cada dimensão
             assessmentStructure.dimensions.forEach(dim => {
                 const scoreData = data.scores[dim.id];
                 const hasLikertQuestions = dim.questions.some(q => q.type === undefined);
-                if(scoreData && hasLikertQuestions) { // Only include if it's a Likert-based dimension and has a score
+                if(scoreData && hasLikertQuestions) {
                     rowData[`Score - ${dim.name}`] = scoreData.score.toFixed(1);
                 }
             });
 
-            // Adiciona respostas individuais das perguntas de dimensão (Likert e novas)
             assessmentStructure.dimensions.forEach(dim => {
                 dim.questions.forEach(q => {
                     const questionKey = `Maturidade - ${dim.name} - ${q.text}`;
@@ -2008,19 +1837,12 @@
                     } else if (q.type === 'radio' || q.type === 'text' || q.type === 'number' || q.type === 'select') {
                         rowData[questionKey] = data.responses[dim.id][q.id] || "";
                     }
-                    else { // Likert type (type is undefined)
+                    else { // Likert type
                         rowData[questionKey] = data.responses[dim.id][q.id]?.maturity || "";
                     }
                 });
             });
 
-            // Adiciona respostas dos Indicadores Operacionais e Financeiros
-            assessmentStructure.operational_financial_questions.forEach(q => {
-                const questionKey = `OFI - ${q.text}`;
-                rowData[questionKey] = data.operationalFinancialResponses[q.id] || "";
-            });
-
-            // Adiciona respostas das perguntas de classificação (incluindo as movidas)
             assessmentStructure.classification_questions.forEach(q => {
                 const questionKey = `Classificação - ${q.text}`;
                 if (q.type === 'checkbox') {
@@ -2030,8 +1852,6 @@
                 }
             });
             
-            const payload = rowData;
-            
             showNotification('Enviando respostas...', 'info');
 
             fetch(SCRIPT_URL, {
@@ -2039,7 +1859,7 @@
                 mode: 'cors',
                 cache: 'no-cache',
                 headers: { 'Content-Type': 'text/plain;charset=utf-8' }, 
-                body: JSON.stringify(payload),
+                body: JSON.stringify(rowData),
             })
             .then(res => res.json())
             .then(response => {
@@ -2058,7 +1878,7 @@
 
         function finishAssessment() {
             if (!validateClassificationQuestions()) {
-                return; // showNotification já é chamado
+                return;
             }
             calculateResults();
             showPage('results-dashboard');
@@ -2073,7 +1893,6 @@
             assessmentData = {
                 institutional: institutionalData,
                 responses: questionnaireData,
-                operationalFinancialResponses: operationalFinancialData, // New
                 classificationResponses: classificationData,
                 scores: {},
                 overallScore: 0,
@@ -2092,32 +1911,34 @@
                 
                 dimension.questions.forEach(question => {
                     const answer = questionnaireData[dimension.id][question.id];
-                    // Only calculate score for Likert questions (where type is undefined)
                     if (question.type === undefined && answer && answer.maturity) { 
                         dimensionScore += answer.maturity;
                         likertQuestionCount++;
-                        totalLikertQuestions++;
                     }
                 });
-                
-                const avgScore = likertQuestionCount > 0 ? dimensionScore / likertQuestionCount : 0;
-                
-                // Store score for Likert-based dimensions only
-                // Use the name directly from assessmentStructure.dimensions for display in chart
-                assessmentData.scores[dimension.id] = {
-                    name: dimension.name.includes(': ') ? dimension.name.split(': ')[1] : dimension.name, // Extract only the name
-                    score: avgScore,
-                    percentage: (avgScore / 5) * 100
-                };
-                
-                if (likertQuestionCount > 0) { // Only sum for overall if it was a Likert dimension
-                   totalScore += dimensionScore; 
-                }
 
-                if (avgScore >= 4.0) {
-                    assessmentData.strengths.push(dimension.name.includes(': ') ? dimension.name.split(': ')[1] : dimension.name);
-                } else if (avgScore > 0 && avgScore < 3.0) { // Only count as opportunity if answered and not zero score
-                    assessmentData.opportunities.push(dimension.name.includes(': ') ? dimension.name.split(': ')[1] : dimension.name);
+                if (likertQuestionCount > 0) {
+                    const avgScore = dimensionScore / likertQuestionCount;
+                    assessmentData.scores[dimension.id] = {
+                        name: dimension.name.includes(': ') ? dimension.name.split(': ')[1] : dimension.name,
+                        score: avgScore,
+                        percentage: (avgScore / 5) * 100
+                    };
+                    totalScore += dimensionScore;
+                    totalLikertQuestions += likertQuestionCount;
+
+                    if (avgScore >= 4.0) {
+                        assessmentData.strengths.push(assessmentData.scores[dimension.id].name);
+                    } else if (avgScore < 3.0) {
+                        assessmentData.opportunities.push(assessmentData.scores[dimension.id].name);
+                    }
+                } else {
+                     // For non-likert dimensions, just store their responses for display/data submission, but don't calculate score
+                    assessmentData.scores[dimension.id] = {
+                        name: dimension.name.includes(': ') ? dimension.name.split(': ')[1] : dimension.name,
+                        score: 0, // No score
+                        responses: questionnaireData[dimension.id]
+                    };
                 }
             });
             
@@ -2126,7 +1947,7 @@
             for (const level in assessmentStructure.maturity_levels) {
                 const levelData = assessmentStructure.maturity_levels[level];
                 const [min, max] = levelData.range;
-                if (assessmentData.overallScore >= min && assessmentData.overallScore <= max) {
+                if (assessmentData.overallScore >= min && (assessmentData.overallScore < max || (assessmentData.overallScore === 5.0 && max === 5.0))) {
                      assessmentData.maturityLevel = {
                         level: level,
                         name: levelData.name,
@@ -2135,10 +1956,10 @@
                     break;
                 }
             }
-            
-             // Fallback for exact 5.0 score if range is exclusive on upper bound
-             if (!assessmentData.maturityLevel && assessmentData.overallScore === 5) {
-                assessmentData.maturityLevel = assessmentStructure.maturity_levels['5'];
+             if (!assessmentData.maturityLevel) {
+                 // Fallback for scores that might fall on boundaries
+                 if(assessmentData.overallScore >= 4.5) assessmentData.maturityLevel = assessmentStructure.maturity_levels['5'];
+                 else if(assessmentData.overallScore < 1.5) assessmentData.maturityLevel = assessmentStructure.maturity_levels['1'];
             }
         }
 
@@ -2164,7 +1985,7 @@
                 assessmentData.opportunities.map(o => `<li>${o}</li>`).join('') :
                 '<li>Nenhuma oportunidade crítica (score < 3.0) identificada.</li>';
 
-            displayAdditionalResults(); // Combined OFI and Classification results
+            displayAdditionalResults();
             createDimensionsChart();
         }
 
@@ -2175,18 +1996,6 @@
             
             const grid = document.createElement('div');
             grid.className = 'classification-results-grid';
-
-            // Display Operational and Financial Indicators
-            assessmentStructure.operational_financial_questions.forEach(q => {
-                const answer = assessmentData.operationalFinancialResponses[q.id];
-                const resultCard = document.createElement('div');
-                resultCard.className = 'classification-result-card';
-                resultCard.innerHTML = `
-                    <p class="question">${q.text}</p>
-                    <p class="answer">${answer || 'Não respondido'}</p>
-                `;
-                grid.appendChild(resultCard);
-            });
 
             // Display final Classification Questions
             assessmentStructure.classification_questions.forEach(q => {
@@ -2210,9 +2019,8 @@
                 window.myDimensionsChart.destroy();
             }
 
-            // Filter for Likert-based dimensions for the radar chart
             const likertDimensions = assessmentStructure.dimensions.filter(dim => 
-                dim.questions.some(q => q.type === undefined) // Check if any question is Likert type (type is undefined)
+                dim.questions.some(q => q.type === undefined)
             );
 
             const labels = likertDimensions.map(d => assessmentData.scores[d.id].name);
